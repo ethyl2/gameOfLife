@@ -26,3 +26,8 @@
   background-image: linear-gradient(orange 1px, transparent 1px),
     linear-gradient(90deg, orange 1px, transparent 1px);
 }
+
+.Cell {
+  background: yellowgreen;
+  position: absolute;
+}
