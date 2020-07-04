@@ -13,7 +13,6 @@ function makeEmptyBoard(rows, cols) {
 
 function updateBoard(x, y, board) {
   board[y][x] = !board[y][x];
-  //console.log(board);
   return board;
 }
 function makeCells(rows, cols, board) {
@@ -25,9 +24,6 @@ function makeCells(rows, cols, board) {
       }
     }
   }
-  cells.push({ x: 1, y: 1 });
-  // cells.push({ x: 0, y: 0 });
-  console.log(cells);
   return cells;
 }
 
@@ -45,6 +41,11 @@ function Game() {
   const [y, setY] = useState(0);
 
   useEffect(() => {
+    setBoard(updateBoard(x, y, board));
+    setCells(makeCells(rows, cols, board));
+  }, [x, y, rows, cols, board]);
+
+  useEffect(() => {
     setNumAlive(cells.length);
   }, [cells]);
 
@@ -55,24 +56,11 @@ function Game() {
     const newX = Math.floor(offsetX / CELL_SIZE);
     const newY = Math.floor(offsetY / CELL_SIZE);
     if (newX >= 0 && newX <= cols && newY >= 0 && newY <= rows) {
-      console.log(`${newX}, ${newY}`);
+      //console.log(`New cell: ${newX}, ${newY}`);
       setX(newX);
       setY(newY);
     }
   };
-
-  useEffect(() => {
-    setBoard(updateBoard(x, y, board));
-    console.log('board changed');
-    setCells(makeCells, rows, cols, board);
-    console.log('cells changed here');
-    setNumAlive(cells.length);
-  }, [x, y, rows, cols, board]);
-
-  useEffect(() => {
-    setCells(makeCells, rows, cols, board);
-    console.log('cells changed');
-  }, [board, rows, cols]);
 
   const getElementOffset = () => {
     const rect = boardRef.current.getBoundingClientRect();
@@ -113,10 +101,13 @@ function Game() {
         </div>
       )}
       <div>
-        <h3>X: {x}</h3>
-      </div>
-      <div>
-        <h3>Y: {y}</h3>
+        {x ? (
+          <h3>
+            Newest Live Cell: ( {x}, {y} )
+          </h3>
+        ) : (
+          <h3>Click on grid to generate new cells.</h3>
+        )}
       </div>
     </div>
   );
