@@ -54,3 +54,9 @@ button:hover {
 button:active {
   transform: translateY(2px);
 }
+
+input {
+  width: 25%;
+  margin: 0.2rem;
+  font-family: 'Orbitron', sans-serif;
+}

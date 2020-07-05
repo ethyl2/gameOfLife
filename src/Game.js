@@ -17,6 +17,7 @@ function Game() {
   const [probability, setProbability] = useState(0.85);
   const [numClicks, setNumClicks] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [interval, setInterval] = useState(100);
 
   useEffect(() => {
     setBoard(updateBoard(x, y, board));
@@ -118,6 +119,10 @@ function Game() {
     console.log('stop game');
   };
 
+  const handleIntervalChange = (e) => {
+    setInterval(e.target.value);
+  };
+
   return (
     <div className="Game">
       <div>
@@ -171,16 +176,31 @@ function Game() {
         </div>
 
         <div>
-          <button onClick={runGame}>
-            <span role="img" aria-label="Black Right-Pointing Triangle">
-              ▶️
-            </span>
-          </button>
-          <button onClick={stopGame}>
-            <span role="img" aria-label="Octagonal Sign">
-              🛑
-            </span>
-          </button>
+          {isRunning ? (
+            <button onClick={stopGame}>
+              <span role="img" aria-label="Octagonal Sign">
+                🛑
+              </span>
+            </button>
+          ) : (
+            <button onClick={runGame}>
+              <span role="img" aria-label="Black Right-Pointing Triangle">
+                ▶️
+              </span>
+            </button>
+          )}
+        </div>
+
+        <div>
+          <h3>
+            Update every
+            <input
+              value={interval}
+              type="number"
+              onChange={handleIntervalChange}
+            />
+            ms
+          </h3>
         </div>
       </div>
     </div>
