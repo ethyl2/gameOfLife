@@ -2,47 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import Cell from './Cell';
 import Explanation from './Explanation';
 
-function makeEmptyBoard(rows, cols) {
-  let board = [...Array(rows)].map((e) => Array(cols));
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-      board[y][x] = false;
-    }
-  }
-  return board;
-}
-
-function makeRandomBoard(rows, cols, probability = 0.85) {
-  let board = [...Array(rows)].map((e) => Array(cols));
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-      if (Math.random() < probability) {
-        board[y][x] = false;
-      } else {
-        board[y][x] = true;
-      }
-    }
-  }
-  return board;
-}
-
-function updateBoard(x, y, board) {
-  board[y][x] = !board[y][x];
-  return board;
-}
-
-function makeCells(rows, cols, board) {
-  let cells = [];
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-      if (board[y][x]) {
-        cells.push({ x, y });
-      }
-    }
-  }
-  return cells;
-}
-
 function Game() {
   const CELL_SIZE = 20;
   const WIDTH = 1000; // 800
@@ -57,6 +16,7 @@ function Game() {
   const [y, setY] = useState(rows / 2);
   const [probability, setProbability] = useState(0.85);
   const [numClicks, setNumClicks] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     setBoard(updateBoard(x, y, board));
@@ -66,6 +26,30 @@ function Game() {
   useEffect(() => {
     setNumAlive(cells.length);
   }, [cells]);
+
+  function makeEmptyBoard(rows, cols) {
+    let board = [...Array(rows)].map((e) => Array(cols));
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        board[y][x] = false;
+      }
+    }
+    return board;
+  }
+
+  function makeRandomBoard(rows, cols, probability = 0.85) {
+    let board = [...Array(rows)].map((e) => Array(cols));
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        if (Math.random() < probability) {
+          board[y][x] = false;
+        } else {
+          board[y][x] = true;
+        }
+      }
+    }
+    return board;
+  }
 
   const generateRandomBoard = (lessOrMore) => {
     if (lessOrMore === 'more') {
@@ -83,6 +67,23 @@ function Game() {
     }
     setBoard(makeRandomBoard(rows, cols, probability));
   };
+
+  function updateBoard(x, y, board) {
+    board[y][x] = !board[y][x];
+    return board;
+  }
+
+  function makeCells(rows, cols, board) {
+    let cells = [];
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        if (board[y][x]) {
+          cells.push({ x, y });
+        }
+      }
+    }
+    return cells;
+  }
 
   const handleClick = (e) => {
     const elemOffset = getElementOffset();
@@ -105,6 +106,16 @@ function Game() {
       x: rect.left + window.pageXOffset - doc.clientLeft,
       y: rect.top + window.pageYOffset - doc.clientTop,
     };
+  };
+
+  const runGame = () => {
+    setIsRunning(true);
+    console.log('start game');
+  };
+
+  const stopGame = () => {
+    setIsRunning(false);
+    console.log('stop game');
   };
 
   return (
@@ -155,6 +166,19 @@ function Game() {
           <button onClick={() => generateRandomBoard('more')}>
             <span role="img" aria-label="Up-Pointing Red Triangle">
               🔺
+            </span>
+          </button>
+        </div>
+
+        <div>
+          <button onClick={runGame}>
+            <span role="img" aria-label="Black Right-Pointing Triangle">
+              ▶️
+            </span>
+          </button>
+          <button onClick={stopGame}>
+            <span role="img" aria-label="Octagonal Sign">
+              🛑
             </span>
           </button>
         </div>

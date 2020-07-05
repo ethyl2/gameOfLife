@@ -35,3 +35,22 @@ ul {
   list-style-position: outside;
   text-align: left;
 }
+
+button {
+  font-family: 'Orbitron', sans-serif;
+  padding: 0.3rem;
+  background: white;
+  border-radius: 2px;
+  border: 1px solid black;
+  margin: 0.2rem;
+  outline: none;
+}
+
+button:hover {
+  background: #480b97;
+  color: yellowgreen;
+}
+
+button:active {
+  transform: translateY(2px);
+}
