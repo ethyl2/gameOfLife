@@ -9,7 +9,7 @@ function Game() {
   const rows = HEIGHT / CELL_SIZE;
   const cols = WIDTH / CELL_SIZE;
   const [board, setBoard] = useState(makeEmptyBoard()); // useState(makeRandomBoard(rows, cols)); // useState(makeEmptyBoard(rows, cols));
-  const [cells, setCells] = useState(makeCells(rows, cols, board));
+  const [cells, setCells] = useState(makeCells());
   const boardRef = useRef();
   const [numAlive, setNumAlive] = useState(cells.length);
   const [x, setX] = useState(cols / 2);
@@ -21,8 +21,8 @@ function Game() {
   const [timeoutHandler, setTimeoutHandler] = useState(null);
 
   useEffect(() => {
-    setBoard(updateBoard(x, y, board));
-    setCells(makeCells(rows, cols, board));
+    setBoard(updateBoard(x, y));
+    setCells(makeCells());
   }, [x, y, rows, cols, board, CELL_SIZE, numClicks]);
 
   useEffect(() => {
@@ -70,12 +70,12 @@ function Game() {
     setBoard(makeRandomBoard(rows, cols, probability));
   };
 
-  function updateBoard(x, y, board) {
+  function updateBoard(x, y) {
     board[y][x] = !board[y][x];
     return board;
   }
 
-  function makeCells(rows, cols, board) {
+  function makeCells() {
     let cells = [];
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
@@ -129,7 +129,7 @@ function Game() {
     console.log('running iteration with interval ' + interval);
     //TODO: Make functionality to have cells change according to rules.
     // For now, we'll just generate a new random board.
-    setBoard(makeRandomBoard(rows, cols));
+    setBoard(makeRandomBoard(rows, cols, probability));
     setTimeoutHandler(
       window.setTimeout(() => {
         runIteration();
