@@ -13,3 +13,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h2 {
+  font-size: 1.25rem;
+  padding: 0.25rem 1rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+}
+p,
+li {
+  font-family: 'Roboto', sans-serif;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+ul {
+  list-style-image: url('./images/squareGreen4.png');
+  /*list-style-type: square;*/
+  list-style-position: outside;
+  text-align: left;
+}

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Cell from './Cell';
+import Explanation from './Explanation';
 
 function makeEmptyBoard(rows, cols) {
   let board = [...Array(rows)].map((e) => Array(cols));
@@ -107,7 +108,11 @@ function Game() {
   };
 
   return (
-    <div>
+    <div className="Game">
+      <div>
+        <Explanation />
+      </div>
+
       <div
         className="Board"
         style={{
@@ -130,34 +135,29 @@ function Game() {
             );
           })}
       </div>
-      {numAlive && (
-        <div>
-          <h3>Number of Live Cells: {numAlive}</h3>
-        </div>
-      )}
       <div>
-        {x ? (
-          <h3>
-            Newest Live Cell: ( {x}, {y} )
-          </h3>
-        ) : (
-          <h3>Click on grid to generate new cells.</h3>
+        <h2>Let's Play!</h2>
+        {numAlive && (
+          <div>
+            <h3>Number of Live Cells: {numAlive}</h3>
+          </div>
         )}
-      </div>
-      <div>
-        <button onClick={() => generateRandomBoard('less')}>
-          <span role="img" aria-label="Down-Pointing Red Triangle">
-            🔻
-          </span>
-        </button>
-        <button onClick={() => generateRandomBoard('restore')}>
-          Random Board
-        </button>
-        <button onClick={() => generateRandomBoard('more')}>
-          <span role="img" aria-label="Up-Pointing Red Triangle">
-            🔺
-          </span>
-        </button>
+
+        <div>
+          <button onClick={() => generateRandomBoard('less')}>
+            <span role="img" aria-label="Down-Pointing Red Triangle">
+              🔻
+            </span>
+          </button>
+          <button onClick={() => generateRandomBoard('restore')}>
+            Random Board
+          </button>
+          <button onClick={() => generateRandomBoard('more')}>
+            <span role="img" aria-label="Up-Pointing Red Triangle">
+              🔺
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );
