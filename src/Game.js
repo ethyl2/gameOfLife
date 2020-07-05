@@ -8,7 +8,7 @@ function Game() {
   const HEIGHT = 600;
   const rows = HEIGHT / CELL_SIZE;
   const cols = WIDTH / CELL_SIZE;
-  const [board, setBoard] = useState(makeEmptyBoard(rows, cols)); // useState(makeRandomBoard(rows, cols)); // useState(makeEmptyBoard(rows, cols));
+  const [board, setBoard] = useState(makeEmptyBoard()); // useState(makeRandomBoard(rows, cols)); // useState(makeEmptyBoard(rows, cols));
   const [cells, setCells] = useState(makeCells(rows, cols, board));
   const boardRef = useRef();
   const [numAlive, setNumAlive] = useState(cells.length);
@@ -29,7 +29,7 @@ function Game() {
     setNumAlive(cells.length);
   }, [cells]);
 
-  function makeEmptyBoard(rows, cols) {
+  function makeEmptyBoard() {
     let board = [...Array(rows)].map((e) => Array(cols));
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
@@ -141,9 +141,11 @@ function Game() {
     setInterval(e.target.value);
     if (isRunning) {
       stopGame();
-      console.log('in the middle: ' + interval);
-      runGame();
     }
+  };
+
+  const clearBoard = () => {
+    setBoard(makeEmptyBoard());
   };
 
   return (
@@ -212,6 +214,7 @@ function Game() {
               </span>
             </button>
           )}
+          <button onClick={clearBoard}>Clear</button>
         </div>
 
         <div>
