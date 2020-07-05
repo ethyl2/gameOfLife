@@ -11,6 +11,20 @@ function makeEmptyBoard(rows, cols) {
   return board;
 }
 
+function makeRandomBoard(rows, cols, probability = 0.85) {
+  let board = [...Array(rows)].map((e) => Array(cols));
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      if (Math.random() < probability) {
+        board[y][x] = false;
+      } else {
+        board[y][x] = true;
+      }
+    }
+  }
+  return board;
+}
+
 function updateBoard(x, y, board) {
   board[y][x] = !board[y][x];
   return board;
@@ -29,25 +43,30 @@ function makeCells(rows, cols, board) {
 
 function Game() {
   const CELL_SIZE = 20;
-  const WIDTH = 800;
+  const WIDTH = 1000; // 800
   const HEIGHT = 600;
   const rows = HEIGHT / CELL_SIZE;
   const cols = WIDTH / CELL_SIZE;
-  const [board, setBoard] = useState(makeEmptyBoard(rows, cols));
+  const [board, setBoard] = useState(makeEmptyBoard(rows, cols)); // useState(makeRandomBoard(rows, cols)); // useState(makeEmptyBoard(rows, cols));
   const [cells, setCells] = useState(makeCells(rows, cols, board));
   const boardRef = useRef();
   const [numAlive, setNumAlive] = useState(cells.length);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
+  const [probability, setProbability] = useState(0.85);
 
   useEffect(() => {
     setBoard(updateBoard(x, y, board));
     setCells(makeCells(rows, cols, board));
-  }, [x, y, rows, cols, board]);
+  }, [x, y, rows, cols, board, CELL_SIZE]);
 
   useEffect(() => {
     setNumAlive(cells.length);
   }, [cells]);
+
+  const generateRandomBoard = (newProbability = 0.85) => {
+    setBoard(makeRandomBoard(rows, cols, newProbability));
+  };
 
   const handleClick = (e) => {
     const elemOffset = getElementOffset();
@@ -56,7 +75,7 @@ function Game() {
     const newX = Math.floor(offsetX / CELL_SIZE);
     const newY = Math.floor(offsetY / CELL_SIZE);
     if (newX >= 0 && newX <= cols && newY >= 0 && newY <= rows) {
-      //console.log(`New cell: ${newX}, ${newY}`);
+      console.log(`New cell: ${newX}, ${newY}`);
       setX(newX);
       setY(newY);
     }
@@ -108,6 +127,15 @@ function Game() {
         ) : (
           <h3>Click on grid to generate new cells.</h3>
         )}
+      </div>
+      <div>
+        <button onClick={() => generateRandomBoard(0.9)}>
+          Random Board with Less Population
+        </button>
+        <button onClick={() => generateRandomBoard()}>Random Board</button>
+        <button onClick={() => generateRandomBoard(0.5)}>
+          Random Board with More Population
+        </button>
       </div>
     </div>
   );
