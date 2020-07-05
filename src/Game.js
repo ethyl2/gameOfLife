@@ -29,6 +29,7 @@ function updateBoard(x, y, board) {
   board[y][x] = !board[y][x];
   return board;
 }
+
 function makeCells(rows, cols, board) {
   let cells = [];
   for (let y = 0; y < rows; y++) {
@@ -51,14 +52,15 @@ function Game() {
   const [cells, setCells] = useState(makeCells(rows, cols, board));
   const boardRef = useRef();
   const [numAlive, setNumAlive] = useState(cells.length);
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
+  const [x, setX] = useState(cols / 2);
+  const [y, setY] = useState(rows / 2);
   const [probability, setProbability] = useState(0.85);
+  const [numClicks, setNumClicks] = useState(0);
 
   useEffect(() => {
     setBoard(updateBoard(x, y, board));
     setCells(makeCells(rows, cols, board));
-  }, [x, y, rows, cols, board, CELL_SIZE]);
+  }, [x, y, rows, cols, board, CELL_SIZE, numClicks]);
 
   useEffect(() => {
     setNumAlive(cells.length);
@@ -78,8 +80,6 @@ function Game() {
     } else {
       setProbability(0.85);
     }
-
-    console.log(probability);
     setBoard(makeRandomBoard(rows, cols, probability));
   };
 
@@ -90,10 +90,11 @@ function Game() {
     const newX = Math.floor(offsetX / CELL_SIZE);
     const newY = Math.floor(offsetY / CELL_SIZE);
     if (newX >= 0 && newX <= cols && newY >= 0 && newY <= rows) {
-      console.log(`New cell: ${newX}, ${newY}`);
+      console.log(`Clicked on: ${newX}, ${newY}`);
       setX(newX);
       setY(newY);
     }
+    setNumClicks(numClicks + 1);
   };
 
   const getElementOffset = () => {
