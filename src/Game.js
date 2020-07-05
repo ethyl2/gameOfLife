@@ -64,8 +64,23 @@ function Game() {
     setNumAlive(cells.length);
   }, [cells]);
 
-  const generateRandomBoard = (newProbability = 0.85) => {
-    setBoard(makeRandomBoard(rows, cols, newProbability));
+  const generateRandomBoard = (lessOrMore) => {
+    if (lessOrMore === 'more') {
+      const newProbability = probability - 0.05;
+      if (newProbability > 0) {
+        setProbability(newProbability);
+      }
+    } else if (lessOrMore === 'less') {
+      const newProbability = probability + 0.01;
+      if (newProbability <= 1) {
+        setProbability(newProbability);
+      }
+    } else {
+      setProbability(0.85);
+    }
+
+    console.log(probability);
+    setBoard(makeRandomBoard(rows, cols, probability));
   };
 
   const handleClick = (e) => {
@@ -129,12 +144,18 @@ function Game() {
         )}
       </div>
       <div>
-        <button onClick={() => generateRandomBoard(0.9)}>
-          Random Board with Less Population
+        <button onClick={() => generateRandomBoard('less')}>
+          <span role="img" aria-label="Down-Pointing Red Triangle">
+            🔻
+          </span>
         </button>
-        <button onClick={() => generateRandomBoard()}>Random Board</button>
-        <button onClick={() => generateRandomBoard(0.5)}>
-          Random Board with More Population
+        <button onClick={() => generateRandomBoard('restore')}>
+          Random Board
+        </button>
+        <button onClick={() => generateRandomBoard('more')}>
+          <span role="img" aria-label="Up-Pointing Red Triangle">
+            🔺
+          </span>
         </button>
       </div>
     </div>
