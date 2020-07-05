@@ -18,6 +18,7 @@ function Game() {
   const [numClicks, setNumClicks] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [interval, setInterval] = useState(100);
+  const [timeoutHandler, setTimeoutHandler] = useState(null);
 
   useEffect(() => {
     setBoard(updateBoard(x, y, board));
@@ -112,15 +113,37 @@ function Game() {
   const runGame = () => {
     setIsRunning(true);
     console.log('start game');
+    runIteration();
   };
 
   const stopGame = () => {
     setIsRunning(false);
     console.log('stop game');
+    if (timeoutHandler) {
+      window.clearTimeout(timeoutHandler);
+      setTimeoutHandler(null);
+    }
+  };
+
+  const runIteration = () => {
+    console.log('running iteration with interval ' + interval);
+    //TODO: Make functionality to have cells change according to rules.
+    // For now, we'll just generate a new random board.
+    setBoard(makeRandomBoard(rows, cols));
+    setTimeoutHandler(
+      window.setTimeout(() => {
+        runIteration();
+      }, interval)
+    );
   };
 
   const handleIntervalChange = (e) => {
     setInterval(e.target.value);
+    if (isRunning) {
+      stopGame();
+      console.log('in the middle: ' + interval);
+      runGame();
+    }
   };
 
   return (
