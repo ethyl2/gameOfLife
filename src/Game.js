@@ -39,7 +39,7 @@ function Game() {
     return board;
   }
 
-  function makeRandomBoard(rows, cols, probability = 0.85) {
+  function makeRandomBoard() {
     let board = [...Array(rows)].map((e) => Array(cols));
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
@@ -67,7 +67,7 @@ function Game() {
     } else {
       setProbability(0.85);
     }
-    setBoard(makeRandomBoard(rows, cols, probability));
+    setBoard(makeRandomBoard());
   };
 
   function updateBoard(x, y) {
@@ -129,7 +129,7 @@ function Game() {
     console.log('running iteration with interval ' + interval);
     //TODO: Make functionality to have cells change according to rules.
     // For now, we'll just generate a new random board.
-    setBoard(makeRandomBoard(rows, cols, probability));
+    setBoard(makeRandomBoard());
     setTimeoutHandler(
       window.setTimeout(() => {
         runIteration();
