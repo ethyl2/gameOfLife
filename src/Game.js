@@ -4,6 +4,7 @@ import Cell from './Cell';
 import Explanation from './Explanation';
 
 function Game() {
+  const [probability, setProbability] = useState(0.999);
   const CELL_SIZE = 20;
   const WIDTH = 1000; // 800
   const HEIGHT = 600;
@@ -15,7 +16,7 @@ function Game() {
   const [numAlive, setNumAlive] = useState(cells.length);
   const [x, setX] = useState(cols / 2);
   const [y, setY] = useState(rows / 2);
-  const [probability, setProbability] = useState(0.99);
+
   const [numClicks, setNumClicks] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [interval, setInterval] = useState(100);
@@ -69,7 +70,7 @@ function Game() {
     } else {
       setProbability(0.85);
     }
-    console.log(probability);
+    console.log('P a cell will be dead: ', probability.toFixed(4));
     setBoard(makeRandomBoard());
   };
 
@@ -87,6 +88,7 @@ function Game() {
         }
       }
     }
+
     return cells;
   }
 
@@ -102,6 +104,9 @@ function Game() {
       setY(newY);
     }
     setNumClicks(numClicks + 1);
+    setProbability(
+      1 - cells.length / ((HEIGHT / CELL_SIZE) * (WIDTH / CELL_SIZE))
+    );
   };
 
   const getElementOffset = () => {
@@ -236,10 +241,11 @@ function Game() {
           </ReactTooltip>
         </div>
         <div>
-          <h3>{`Chance of cells being alive: ${(
-            (1 - probability) *
-            100
-          ).toFixed(0)}%`}</h3>
+          <h3>{`Chance of cells being alive: ${
+            ((1 - probability) * 100).toFixed(0) > 0
+              ? ((1 - probability) * 100).toFixed(0)
+              : '< 1'
+          }%`}</h3>
         </div>
 
         <div>
