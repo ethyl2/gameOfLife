@@ -1,45 +1,50 @@
-export default function calculateNeighbors(currentX, currentY, board) {
+export default function calculateNeighbors(
+  currentX,
+  currentY,
+  board,
+  rows,
+  cols
+) {
   let totalAliveNeighbors = 0;
   const neighborBooleans = [];
+  const neighbors = [
+    [currentX - 1, currentY - 1],
+    [currentX, currentY - 1],
+    [currentX + 1, currentY - 1],
+    [currentX - 1, currentY],
+    [currentX + 1, currentY],
+    [currentX - 1, currentY + 1],
+    [currentX, currentY + 1],
+    [currentX + 1, currentY + 1],
+  ];
+
+  for (let i = 0; i < neighbors.length; i++) {
+    const xToCheck = neighbors[i][0];
+    const yToCheck = neighbors[i][1];
+    if (board[yToCheck][xToCheck]) {
+      totalAliveNeighbors++;
+      neighborBooleans.push(true);
+    } else {
+      neighborBooleans.push(false);
+    }
+  }
 
   // Special edge cases:
-  // When only currentX === 0 && currentY === 0:
+  // When currentX === 0 && currentY === 0:
 
-  // Top row:
-  for (let i = -1; i < 2; i++) {
-    // console.log(`Checking board[${currentY - 1}][${currentX + i}]`);
-    if (board[currentY - 1][currentX + i]) {
-      totalAliveNeighbors++;
-      neighborBooleans.push(true);
-    } else {
-      neighborBooleans.push(false);
-    }
-  }
+  // When currentX === 0 && currentY = rows-1
 
-  // Middle row:
-  if (board[currentY][currentX - 1]) {
-    totalAliveNeighbors++;
-    neighborBooleans.push(true);
-  } else {
-    neighborBooleans.push(false);
-  }
+  // When currentX === cols-1 && currentY = rows-1
 
-  if (board[currentY][currentX + 1]) {
-    totalAliveNeighbors++;
-    neighborBooleans.push(true);
-  } else {
-    neighborBooleans.push(false);
-  }
+  // When currentX === cols-1 && currentY === 0
 
-  // Bottom row:
-  for (let i = -1; i < 2; i++) {
-    if (board[currentY + 1][currentX + i]) {
-      totalAliveNeighbors++;
-      neighborBooleans.push(true);
-    } else {
-      neighborBooleans.push(false);
-    }
-  }
+  // When x === 0
+
+  // When x === cols-1
+
+  // When y === 0
+
+  // When y === rows-1
 
   console.log(totalAliveNeighbors);
   console.log(neighborBooleans);
