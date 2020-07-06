@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactTooltip from 'react-tooltip';
 import Cell from './Cell';
 import Explanation from './Explanation';
 
@@ -14,7 +15,7 @@ function Game() {
   const [numAlive, setNumAlive] = useState(cells.length);
   const [x, setX] = useState(cols / 2);
   const [y, setY] = useState(rows / 2);
-  const [probability, setProbability] = useState(0.85);
+  const [probability, setProbability] = useState(0.99);
   const [numClicks, setNumClicks] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [interval, setInterval] = useState(100);
@@ -40,6 +41,7 @@ function Game() {
   }
 
   function makeRandomBoard() {
+    // If the probability is a higher number, less alive cells will result.
     let board = [...Array(rows)].map((e) => Array(cols));
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
@@ -67,6 +69,7 @@ function Game() {
     } else {
       setProbability(0.85);
     }
+    console.log(probability);
     setBoard(makeRandomBoard());
   };
 
@@ -185,19 +188,48 @@ function Game() {
         )}
 
         <div>
-          <button onClick={() => generateRandomBoard('less')}>
+          <button
+            data-tip
+            data-for="less"
+            onClick={() => generateRandomBoard('less')}
+          >
             <span role="img" aria-label="Down-Pointing Red Triangle">
               🔻
             </span>
           </button>
-          <button onClick={() => generateRandomBoard('restore')}>
-            Random Board
+          <ReactTooltip id="less" type="success">
+            <span>Less Cells</span>
+          </ReactTooltip>
+          <button
+            data-tip
+            data-for="restore"
+            onClick={() => generateRandomBoard('restore')}
+          >
+            <span role="img" aria-label="Petri Dish">
+              🧫
+            </span>
           </button>
-          <button onClick={() => generateRandomBoard('more')}>
+          <ReactTooltip id="restore" type="success">
+            <span>Random Board</span>
+          </ReactTooltip>
+          <button
+            data-tip
+            data-for="more"
+            onClick={() => generateRandomBoard('more')}
+          >
             <span role="img" aria-label="Up-Pointing Red Triangle">
               🔺
             </span>
           </button>
+          <ReactTooltip id="more" type="success">
+            <span>More Cells</span>
+          </ReactTooltip>
+        </div>
+        <div>
+          <h3>{`Chance of cells being alive: ${(
+            (1 - probability) *
+            100
+          ).toFixed(0)}%`}</h3>
         </div>
 
         <div>
@@ -208,13 +240,23 @@ function Game() {
               </span>
             </button>
           ) : (
-            <button onClick={runGame}>
+            <button data-tip data-for="run" onClick={runGame}>
               <span role="img" aria-label="Black Right-Pointing Triangle">
                 ▶️
               </span>
             </button>
           )}
-          <button onClick={clearBoard}>Clear</button>
+          <ReactTooltip id="run" type="success">
+            <span>{isRunning ? 'Stop' : 'Run'}</span>
+          </ReactTooltip>
+          <button data-tip data-for="clear" onClick={clearBoard}>
+            <span role="img" aria-label="Bar of Soap">
+              🧼
+            </span>
+          </button>
+          <ReactTooltip id="clear" type="success">
+            <span>Clear</span>
+          </ReactTooltip>
         </div>
 
         <div>
