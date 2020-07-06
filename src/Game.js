@@ -159,6 +159,8 @@ function Game() {
 
       <div
         className="Board"
+        data-tip
+        data-for="board"
         style={{
           width: WIDTH,
           height: HEIGHT,
@@ -178,14 +180,22 @@ function Game() {
               />
             );
           })}
+        {numClicks < 1 && (
+          <ReactTooltip id="board" type="success">
+            <span>Click to place live cells</span>
+          </ReactTooltip>
+        )}
+        {numClicks === 1 && (
+          <ReactTooltip id="board" type="success">
+            <span>Click on a live cell to kill it</span>
+          </ReactTooltip>
+        )}
       </div>
       <div>
         <h2>Let's Play!</h2>
-        {numAlive && (
-          <div>
-            <h3>Number of Live Cells: {numAlive}</h3>
-          </div>
-        )}
+        <div>
+          <h3>Number of Live Cells: {numAlive}</h3>
+        </div>
 
         <div>
           <button
