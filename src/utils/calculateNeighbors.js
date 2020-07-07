@@ -54,14 +54,30 @@ export default function calculateNeighbors(
     neighbors[7][0] = 0;
   }
   // When x === 0
-
+  else if (currentX === 0) {
+    neighbors[0][0] = cols - 1;
+    neighbors[3][0] = cols - 1;
+    neighbors[5][0] = cols - 1;
+  }
   // When x === cols-1
+  else if (currentX === cols - 1) {
+    neighbors[2][0] = 0;
+    neighbors[4][0] = 0;
+    neighbors[7][0] = 0;
+  }
 
   // When y === 0
+  else if (currentY === 0) {
+    neighbors[0][1] = rows - 1;
+    neighbors[1][1] = rows - 1;
+    neighbors[2][1] = rows - 1;
+  }
 
   // When y === rows-1
-  else {
-    console.log('no special case to consider');
+  else if (currentY === rows - 1) {
+    neighbors[5][1] = 0;
+    neighbors[6][1] = 0;
+    neighbors[7][1] = 0;
   }
   for (let i = 0; i < neighbors.length; i++) {
     const xToCheck = neighbors[i][0];
