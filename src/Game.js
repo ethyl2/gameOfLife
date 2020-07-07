@@ -4,6 +4,7 @@ import Cell from './Cell';
 import Explanation from './Explanation';
 // import calculateNeighbors from './utils/calculateNeighbors';
 import determineCellsFate from './utils/determineCellsFate';
+import updateCompleteBoard from './utils/updateCompleteBoard';
 
 function Game() {
   const [probability, setProbability] = useState(0.999);
@@ -161,7 +162,10 @@ function Game() {
   useEffect(() => {
     //49 , 29
     //calculateNeighbors(2, 2, board, rows, cols);
-    console.log(determineCellsFate(1, 1, board, rows, cols));
+    // console.log(determineCellsFate(1, 1, board, rows, cols));
+    const boardCopy = [...board];
+    const newBoard = updateCompleteBoard(rows, cols, boardCopy);
+    console.log(newBoard);
   }, [numClicks]);
 
   return (
