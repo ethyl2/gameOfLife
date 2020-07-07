@@ -92,4 +92,5 @@ export default function calculateNeighbors(
 
   console.log(totalAliveNeighbors);
   console.log(neighborBooleans);
+  return totalAliveNeighbors;
 }
