@@ -158,7 +158,8 @@ function Game() {
   };
 
   useEffect(() => {
-    calculateNeighbors(49, 29, board, rows, cols);
+    //49 , 29
+    calculateNeighbors(49, 0, board, rows, cols);
   }, [numClicks]);
 
   return (

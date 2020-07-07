@@ -46,7 +46,13 @@ export default function calculateNeighbors(
     neighbors[7] = [0, 0];
   }
   // When currentX === cols-1 && currentY === 0
-
+  else if (currentX === cols - 1 && currentY === 0) {
+    neighbors[0][1] = rows - 1;
+    neighbors[1][1] = rows - 1;
+    neighbors[2] = [0, rows - 1];
+    neighbors[4][0] = 0;
+    neighbors[7][0] = 0;
+  }
   // When x === 0
 
   // When x === cols-1
