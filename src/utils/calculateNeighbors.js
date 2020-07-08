@@ -33,7 +33,6 @@ export default function calculateNeighbors(
     neighbors[0][0] = cols - 1;
     neighbors[3][0] = cols - 1;
     neighbors[5] = [cols - 1, 0];
-    console.log(neighbors[5]);
     neighbors[6][1] = 0;
     neighbors[7][1] = 0;
   }

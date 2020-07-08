@@ -140,7 +140,8 @@ function Game() {
     console.log('running iteration with interval ' + interval);
     //TODO: Make functionality to have cells change according to rules.
     // For now, we'll just generate a new random board.
-    setBoard(makeRandomBoard());
+    //setBoard(makeRandomBoard());
+    setBoard(updateCompleteBoard(rows, cols, board));
     setTimeoutHandler(
       window.setTimeout(() => {
         runIteration();
@@ -158,15 +159,21 @@ function Game() {
   const clearBoard = () => {
     setBoard(makeEmptyBoard());
   };
-
+  /*
   useEffect(() => {
     //49 , 29
     //calculateNeighbors(2, 2, board, rows, cols);
     // console.log(determineCellsFate(1, 1, board, rows, cols));
-    const boardCopy = [...board];
-    const newBoard = updateCompleteBoard(rows, cols, boardCopy);
-    console.log(newBoard);
+    //const boardCopy = [...board];
+    //const newBoard = updateCompleteBoard(rows, cols, board);
+    //console.log(newBoard);
+    setBoard(updateCompleteBoard(rows, cols, board));
   }, [numClicks]);
+  */
+
+  const handleGenerationClick = () => {
+    setBoard(updateCompleteBoard(rows, cols, board));
+  };
 
   return (
     <div className="Game">
@@ -297,6 +304,9 @@ function Game() {
             />
             ms
           </h3>
+        </div>
+        <div>
+          <button onClick={handleGenerationClick}>Show Next Generation</button>
         </div>
       </div>
     </div>

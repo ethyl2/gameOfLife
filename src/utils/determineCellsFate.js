@@ -16,10 +16,17 @@ export default function determineCellsFate(
     rows,
     cols
   );
-  if (numNeighbors < 2) {
+  if (board[currentY][currentX]) {
+    if (numNeighbors < 2) {
+      return false;
+    } else if (numNeighbors < 4) {
+      return true;
+    }
     return false;
-  } else if (numNeighbors < 4) {
-    return true;
+  } else {
+    if (numNeighbors === 3) {
+      return true;
+    }
+    return false;
   }
-  return false;
 }
