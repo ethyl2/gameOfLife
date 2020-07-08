@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import Cell from './Cell';
 import Explanation from './Explanation';
 // import calculateNeighbors from './utils/calculateNeighbors';
-import determineCellsFate from './utils/determineCellsFate';
+// import determineCellsFate from './utils/determineCellsFate';
 import updateCompleteBoard from './utils/updateCompleteBoard';
 
 function Game() {
@@ -217,9 +217,6 @@ function Game() {
       </div>
       <div>
         <h2>Let's Play!</h2>
-        <div>
-          <h3>Number of Live Cells: {numAlive}</h3>
-        </div>
 
         <div>
           <button
@@ -259,6 +256,32 @@ function Game() {
             <span>More Cells</span>
           </ReactTooltip>
         </div>
+
+        <div>
+          <button
+            data-tip
+            data-for="generation"
+            onClick={handleGenerationClick}
+          >
+            <span role="img" aria-label="Baby: Dark Skin Tone">
+              👶🏿
+            </span>
+            <span role="img" aria-label="Baby: Medium-Dark Skin Tone">
+              👶🏾
+            </span>
+            <span role="img" aria-label="Baby: Medium Skin Tone">
+              👶🏽
+            </span>
+          </button>
+          <ReactTooltip id="generation" type="success">
+            <span>Show Next Generation</span>
+          </ReactTooltip>
+        </div>
+
+        <div>
+          <h3>Number of Live Cells: {numAlive}</h3>
+        </div>
+
         <div>
           <h3>{`Chance of cells being alive: ${
             ((1 - probability) * 100).toFixed(0) > 0
@@ -304,9 +327,6 @@ function Game() {
             />
             ms
           </h3>
-        </div>
-        <div>
-          <button onClick={handleGenerationClick}>Show Next Generation</button>
         </div>
       </div>
     </div>
