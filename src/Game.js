@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
 import Cell from './Cell';
 import Explanation from './Explanation';
-// import calculateNeighbors from './utils/calculateNeighbors';
-// import determineCellsFate from './utils/determineCellsFate';
+import makeRandomBoard from './utils/makeRandomBoard';
 import updateCompleteBoard from './utils/updateCompleteBoard';
 import {
   makeBlinkers,
@@ -20,7 +19,7 @@ function Game() {
   const HEIGHT = 600;
   const rows = HEIGHT / CELL_SIZE;
   const cols = WIDTH / CELL_SIZE;
-  const [board, setBoard] = useState(makeRandomBoard()); //useState(makeEmptyBoard());
+  const [board, setBoard] = useState(makeRandomBoard(rows, cols, probability)); //useState(makeEmptyBoard());
   const [cells, setCells] = useState(makeCells());
   const boardRef = useRef();
   const [numAlive, setNumAlive] = useState(cells.length);
@@ -51,21 +50,6 @@ function Game() {
     return board;
   }
 
-  function makeRandomBoard() {
-    // If the probability is a higher number, less alive cells will result.
-    let board = [...Array(rows)].map((e) => Array(cols));
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        if (Math.random() < probability) {
-          board[y][x] = false;
-        } else {
-          board[y][x] = true;
-        }
-      }
-    }
-    return board;
-  }
-
   const generateRandomBoard = (lessOrMore) => {
     if (lessOrMore === 'more') {
       const newProbability = probability - 0.05;
@@ -81,7 +65,7 @@ function Game() {
       setProbability(0.85);
     }
     console.log('P a cell will be dead: ', probability.toFixed(4));
-    setBoard(makeRandomBoard());
+    setBoard(makeRandomBoard(rows, cols, probability));
   };
 
   function updateBoard(x, y) {
