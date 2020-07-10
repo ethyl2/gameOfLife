@@ -3,6 +3,7 @@ module.exports = {
   makeToads,
   makeBeacons,
   makePulsar,
+  makePentadecathlon,
 };
 
 function makeBlinkers(rows, cols) {
@@ -71,6 +72,25 @@ function makePulsar(rows, cols) {
         [8, 13, 15, 20, 28, 33, 35, 40].includes(x) &&
         [12, 13, 14, 18, 19, 20].includes(y)
       ) {
+        newBoard[y][x] = true;
+      } else {
+        newBoard[y][x] = false;
+      }
+    }
+  }
+  return newBoard;
+}
+
+function makePentadecathlon(rows, cols) {
+  let newBoard = [...Array(rows)].map((e) => Array(cols));
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      if (
+        [10, 11, 12, 40, 41, 42].includes(x) &&
+        [10, 13, 18, 21].includes(y)
+      ) {
+        newBoard[y][x] = true;
+      } else if ([9, 13, 39, 43].includes(x) && [11, 12, 19, 20].includes(y)) {
         newBoard[y][x] = true;
       } else {
         newBoard[y][x] = false;

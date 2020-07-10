@@ -10,6 +10,7 @@ import {
   makeToads,
   makeBeacons,
   makePulsar,
+  makePentadecathlon,
 } from './utils/makePatterns';
 
 function Game() {
@@ -189,6 +190,8 @@ function Game() {
       setBoard(makeToads(rows, cols));
     } else if (patternType === 'beacon') {
       setBoard(makeBeacons(rows, cols));
+    } else if (patternType === 'pentadecathlon') {
+      setBoard(makePentadecathlon(rows, cols));
     } else {
       setBoard(makePulsar(rows, cols));
     }
@@ -397,7 +400,20 @@ function Game() {
             </span>
           </button>
           <ReactTooltip id="pulsar" type="success">
-            <span>Pulsar</span>
+            <span>Pulsars</span>
+          </ReactTooltip>
+
+          <button
+            data-tip
+            data-for="pentadecathlon"
+            onClick={() => makePattern('pentadecathlon')}
+          >
+            <span role="img" aria-label="Wind Chime">
+              🎐
+            </span>
+          </button>
+          <ReactTooltip id="pentadecathlon" type="success">
+            <span>Pentadecathlon</span>
           </ReactTooltip>
         </div>
       </div>
