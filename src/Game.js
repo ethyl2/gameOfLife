@@ -7,13 +7,13 @@ import Explanation from './Explanation';
 import updateCompleteBoard from './utils/updateCompleteBoard';
 
 function Game() {
-  const [probability, setProbability] = useState(0.999);
+  const [probability, setProbability] = useState(0.85); //0.999 //Use 0.999 if you want to start with an empty board
   const CELL_SIZE = 20;
   const WIDTH = 1000; // 800
   const HEIGHT = 600;
   const rows = HEIGHT / CELL_SIZE;
   const cols = WIDTH / CELL_SIZE;
-  const [board, setBoard] = useState(makeEmptyBoard()); // useState(makeRandomBoard(rows, cols)); // useState(makeEmptyBoard(rows, cols));
+  const [board, setBoard] = useState(makeRandomBoard()); //useState(makeEmptyBoard());
   const [cells, setCells] = useState(makeCells());
   const boardRef = useRef();
   const [numAlive, setNumAlive] = useState(cells.length);
@@ -159,7 +159,7 @@ function Game() {
   const clearBoard = () => {
     setBoard(makeEmptyBoard());
   };
-  /*
+
   useEffect(() => {
     //49 , 29
     //calculateNeighbors(2, 2, board, rows, cols);
@@ -167,13 +167,37 @@ function Game() {
     //const boardCopy = [...board];
     //const newBoard = updateCompleteBoard(rows, cols, board);
     //console.log(newBoard);
-    setBoard(updateCompleteBoard(rows, cols, board));
+    //setBoard(updateCompleteBoard(rows, cols, board));
+    //setBoard(makeBlinker());
   }, [numClicks]);
-  */
 
   const handleGenerationClick = () => {
     setBoard(updateCompleteBoard(rows, cols, board));
   };
+
+  const makePattern = (patternType) => {
+    if (patternType === 'blinker') {
+      console.log('make blinker');
+      setBoard(makeBlinker());
+    }
+  };
+
+  function makeBlinker() {
+    let newBoard = [...Array(rows)].map((e) => Array(cols));
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        if (
+          [10, 11, 12, 35, 36, 37].includes(x) &&
+          [2, 7, 12, 17, 22, 27].includes(y)
+        ) {
+          newBoard[y][x] = true;
+        } else {
+          newBoard[y][x] = false;
+        }
+      }
+    }
+    return newBoard;
+  }
 
   return (
     <div className="Game">
@@ -327,6 +351,22 @@ function Game() {
             />
             ms
           </h3>
+        </div>
+
+        <div>
+          <h3>Show Patterns</h3>
+          <button
+            data-tip
+            data-for="blinker"
+            onClick={() => makePattern('blinker')}
+          >
+            <span role="img" aria-label="Police Car Light">
+              🚨
+            </span>
+          </button>
+          <ReactTooltip id="blinker" type="success">
+            <span>Blinkers</span>
+          </ReactTooltip>
         </div>
       </div>
     </div>
