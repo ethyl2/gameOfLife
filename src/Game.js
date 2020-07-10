@@ -5,6 +5,7 @@ import Explanation from './Explanation';
 // import calculateNeighbors from './utils/calculateNeighbors';
 // import determineCellsFate from './utils/determineCellsFate';
 import updateCompleteBoard from './utils/updateCompleteBoard';
+import { makeBlinkers, makeToads, makeBeacons } from './utils/makePatterns';
 
 function Game() {
   const [probability, setProbability] = useState(0.85); //0.999 //Use 0.999 if you want to start with an empty board
@@ -159,8 +160,9 @@ function Game() {
   const clearBoard = () => {
     setBoard(makeEmptyBoard());
   };
-
+  /*
   useEffect(() => {
+    // For testing purposes
     //49 , 29
     //calculateNeighbors(2, 2, board, rows, cols);
     // console.log(determineCellsFate(1, 1, board, rows, cols));
@@ -170,34 +172,21 @@ function Game() {
     //setBoard(updateCompleteBoard(rows, cols, board));
     //setBoard(makeBlinker());
   }, [numClicks]);
-
+  */
   const handleGenerationClick = () => {
     setBoard(updateCompleteBoard(rows, cols, board));
   };
 
   const makePattern = (patternType) => {
     if (patternType === 'blinker') {
-      console.log('make blinker');
-      setBoard(makeBlinker());
+      setBoard(makeBlinkers(rows, cols));
+    } else if (patternType === 'toad') {
+      setBoard(makeToads(rows, cols));
+    } else if (patternType === 'beacon') {
+      setBoard(makeBeacons(rows, cols));
+      console.log('beacons');
     }
   };
-
-  function makeBlinker() {
-    let newBoard = [...Array(rows)].map((e) => Array(cols));
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        if (
-          [10, 11, 12, 35, 36, 37].includes(x) &&
-          [2, 7, 12, 17, 22, 27].includes(y)
-        ) {
-          newBoard[y][x] = true;
-        } else {
-          newBoard[y][x] = false;
-        }
-      }
-    }
-    return newBoard;
-  }
 
   return (
     <div className="Game">
@@ -354,18 +343,42 @@ function Game() {
         </div>
 
         <div>
+          <hr />
           <h3>Show Patterns</h3>
+          <p>Oscillators</p>
           <button
             data-tip
             data-for="blinker"
             onClick={() => makePattern('blinker')}
           >
-            <span role="img" aria-label="Police Car Light">
-              🚨
+            <span role="img" aria-label="Sparkles">
+              ✨
             </span>
           </button>
           <ReactTooltip id="blinker" type="success">
             <span>Blinkers</span>
+          </ReactTooltip>
+
+          <button data-tip data-for="toad" onClick={() => makePattern('toad')}>
+            <span role="img" aria-label="Frog">
+              🐸
+            </span>
+          </button>
+          <ReactTooltip id="toad" type="success">
+            <span>Toads</span>
+          </ReactTooltip>
+
+          <button
+            data-tip
+            data-for="beacon"
+            onClick={() => makePattern('beacon')}
+          >
+            <span role="img" aria-label="Police Car Light">
+              🚨
+            </span>
+          </button>
+          <ReactTooltip id="beacon" type="success">
+            <span>Beacons</span>
           </ReactTooltip>
         </div>
       </div>
