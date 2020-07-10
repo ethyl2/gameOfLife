@@ -4,6 +4,7 @@ import Cell from './Cell';
 import Explanation from './Explanation';
 import makeRandomBoard from './utils/makeRandomBoard';
 import updateCompleteBoard from './utils/updateCompleteBoard';
+import makeEmptyBoard from './utils/makeEmptyBoard';
 import {
   makeBlinkers,
   makeToads,
@@ -19,7 +20,7 @@ function Game() {
   const HEIGHT = 600;
   const rows = HEIGHT / CELL_SIZE;
   const cols = WIDTH / CELL_SIZE;
-  const [board, setBoard] = useState(makeRandomBoard(rows, cols, probability)); //useState(makeEmptyBoard());
+  const [board, setBoard] = useState(makeRandomBoard(rows, cols, probability)); //useState(makeEmptyBoard(rows, cols));
   const [cells, setCells] = useState(makeCells());
   const boardRef = useRef();
   const [numAlive, setNumAlive] = useState(cells.length);
@@ -32,23 +33,13 @@ function Game() {
   const [timeoutHandler, setTimeoutHandler] = useState(null);
 
   useEffect(() => {
-    setBoard(updateBoard(x, y));
+    setBoard(updateBoard());
     setCells(makeCells());
-  }, [x, y, rows, cols, board, CELL_SIZE, numClicks]);
+  }, [x, y, board, numClicks]);
 
   useEffect(() => {
     setNumAlive(cells.length);
   }, [cells]);
-
-  function makeEmptyBoard() {
-    let board = [...Array(rows)].map((e) => Array(cols));
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        board[y][x] = false;
-      }
-    }
-    return board;
-  }
 
   const generateRandomBoard = (lessOrMore) => {
     if (lessOrMore === 'more') {
@@ -68,22 +59,22 @@ function Game() {
     setBoard(makeRandomBoard(rows, cols, probability));
   };
 
-  function updateBoard(x, y) {
+  function updateBoard() {
     board[y][x] = !board[y][x];
     return board;
   }
 
   function makeCells() {
-    let cells = [];
+    let newCells = [];
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
         if (board[y][x]) {
-          cells.push({ x, y });
+          newCells.push({ x, y });
         }
       }
     }
 
-    return cells;
+    return newCells;
   }
 
   const handleClick = (e) => {
@@ -148,7 +139,7 @@ function Game() {
   };
 
   const clearBoard = () => {
-    setBoard(makeEmptyBoard());
+    setBoard(makeEmptyBoard(rows, cols));
   };
   /*
   useEffect(() => {
