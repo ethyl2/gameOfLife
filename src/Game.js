@@ -184,16 +184,21 @@ function Game() {
   };
 
   const makePattern = (patternType) => {
-    if (patternType === 'blinker') {
-      setBoard(makeBlinkers(rows, cols));
-    } else if (patternType === 'toad') {
-      setBoard(makeToads(rows, cols));
-    } else if (patternType === 'beacon') {
-      setBoard(makeBeacons(rows, cols));
-    } else if (patternType === 'pentadecathlon') {
-      setBoard(makePentadecathlon(rows, cols));
-    } else {
-      setBoard(makePulsar(rows, cols));
+    switch (patternType) {
+      case 'blinker':
+        setBoard(makeBlinkers(rows, cols));
+        break;
+      case 'toad':
+        setBoard(makeToads(rows, cols));
+        break;
+      case 'beacon':
+        setBoard(makeBeacons(rows, cols));
+        break;
+      case 'pentadecathlon':
+        setBoard(makePentadecathlon(rows, cols));
+        break;
+      default:
+        setBoard(makePulsar(rows, cols));
     }
   };
 
