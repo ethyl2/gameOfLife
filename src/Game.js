@@ -5,7 +5,12 @@ import Explanation from './Explanation';
 // import calculateNeighbors from './utils/calculateNeighbors';
 // import determineCellsFate from './utils/determineCellsFate';
 import updateCompleteBoard from './utils/updateCompleteBoard';
-import { makeBlinkers, makeToads, makeBeacons } from './utils/makePatterns';
+import {
+  makeBlinkers,
+  makeToads,
+  makeBeacons,
+  makePulsar,
+} from './utils/makePatterns';
 
 function Game() {
   const [probability, setProbability] = useState(0.85); //0.999 //Use 0.999 if you want to start with an empty board
@@ -184,7 +189,8 @@ function Game() {
       setBoard(makeToads(rows, cols));
     } else if (patternType === 'beacon') {
       setBoard(makeBeacons(rows, cols));
-      console.log('beacons');
+    } else {
+      setBoard(makePulsar(rows, cols));
     }
   };
 
@@ -379,6 +385,19 @@ function Game() {
           </button>
           <ReactTooltip id="beacon" type="success">
             <span>Beacons</span>
+          </ReactTooltip>
+
+          <button
+            data-tip
+            data-for="pulsar"
+            onClick={() => makePattern('pulsar')}
+          >
+            <span role="img" aria-label="Collision">
+              💥
+            </span>
+          </button>
+          <ReactTooltip id="pulsar" type="success">
+            <span>Pulsar</span>
           </ReactTooltip>
         </div>
       </div>
