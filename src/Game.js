@@ -11,6 +11,7 @@ import {
   makeBeacons,
   makePulsar,
   makePentadecathlon,
+  makeBlocks,
 } from './utils/makePatterns';
 
 function Game() {
@@ -82,7 +83,7 @@ function Game() {
     const offsetX = e.clientX - elemOffset.x;
     const offsetY = e.clientY - elemOffset.y;
     const newX = Math.floor(offsetX / CELL_SIZE);
-    const newY = Math.floor(offsetY / CELL_SIZE);
+    const newY = Math.floor(offsetY / CELL_SIZE) + 1;
     if (newX >= 0 && newX <= cols && newY >= 0 && newY <= rows) {
       console.log(`Clicked on: ${newX}, ${newY}`);
       setX(newX);
@@ -120,10 +121,11 @@ function Game() {
 
   const runIteration = () => {
     console.log('running iteration with interval ' + interval);
-    //TODO: Make functionality to have cells change according to rules.
-    // For now, we'll just generate a new random board.
-    //setBoard(makeRandomBoard());
+    //TODO: Figure out how to get board to be redrawn each interval.
+    // It works for makeRandomBoard, but not for updateCompleteBoard, for some reason.
+    // setBoard(makeRandomBoard(rows, cols, probability));
     setBoard(updateCompleteBoard(rows, cols, board));
+
     setTimeoutHandler(
       window.setTimeout(() => {
         runIteration();
@@ -171,6 +173,9 @@ function Game() {
         break;
       case 'pentadecathlon':
         setBoard(makePentadecathlon(rows, cols));
+        break;
+      case 'blocks':
+        setBoard(makeBlocks(rows, cols));
         break;
       default:
         setBoard(makePulsar(rows, cols));
@@ -334,67 +339,89 @@ function Game() {
         <div>
           <hr />
           <h3>Show Patterns</h3>
-          <p>Oscillators</p>
-          <button
-            data-tip
-            data-for="blinker"
-            onClick={() => makePattern('blinker')}
-          >
-            <span role="img" aria-label="Sparkles">
-              ✨
-            </span>
-          </button>
-          <ReactTooltip id="blinker" type="success">
-            <span>Blinkers</span>
-          </ReactTooltip>
+          <div>
+            <h4>Oscillators</h4>
+            <button
+              data-tip
+              data-for="blinker"
+              onClick={() => makePattern('blinker')}
+            >
+              <span role="img" aria-label="Sparkles">
+                ✨
+              </span>
+            </button>
+            <ReactTooltip id="blinker" type="success">
+              <span>Blinkers</span>
+            </ReactTooltip>
 
-          <button data-tip data-for="toad" onClick={() => makePattern('toad')}>
-            <span role="img" aria-label="Frog">
-              🐸
-            </span>
-          </button>
-          <ReactTooltip id="toad" type="success">
-            <span>Toads</span>
-          </ReactTooltip>
+            <button
+              data-tip
+              data-for="toad"
+              onClick={() => makePattern('toad')}
+            >
+              <span role="img" aria-label="Frog">
+                🐸
+              </span>
+            </button>
+            <ReactTooltip id="toad" type="success">
+              <span>Toads</span>
+            </ReactTooltip>
 
-          <button
-            data-tip
-            data-for="beacon"
-            onClick={() => makePattern('beacon')}
-          >
-            <span role="img" aria-label="Police Car Light">
-              🚨
-            </span>
-          </button>
-          <ReactTooltip id="beacon" type="success">
-            <span>Beacons</span>
-          </ReactTooltip>
+            <button
+              data-tip
+              data-for="beacon"
+              onClick={() => makePattern('beacon')}
+            >
+              <span role="img" aria-label="Police Car Light">
+                🚨
+              </span>
+            </button>
+            <ReactTooltip id="beacon" type="success">
+              <span>Beacons</span>
+            </ReactTooltip>
 
-          <button
-            data-tip
-            data-for="pulsar"
-            onClick={() => makePattern('pulsar')}
-          >
-            <span role="img" aria-label="Collision">
-              💥
-            </span>
-          </button>
-          <ReactTooltip id="pulsar" type="success">
-            <span>Pulsars</span>
-          </ReactTooltip>
+            <button
+              data-tip
+              data-for="pulsar"
+              onClick={() => makePattern('pulsar')}
+            >
+              <span role="img" aria-label="Collision">
+                💥
+              </span>
+            </button>
+            <ReactTooltip id="pulsar" type="success">
+              <span>Pulsars</span>
+            </ReactTooltip>
 
-          <button
-            data-tip
-            data-for="pentadecathlon"
-            onClick={() => makePattern('pentadecathlon')}
-          >
-            <span role="img" aria-label="Wind Chime">
-              🎐
-            </span>
-          </button>
-          <ReactTooltip id="pentadecathlon" type="success">
-            <span>Pentadecathlon</span>
-          </ReactTooltip>
+            <button
+              data-tip
+              data-for="pentadecathlon"
+              onClick={() => makePattern('pentadecathlon')}
+            >
+              <span role="img" aria-label="Wind Chime">
+                🎐
+              </span>
+            </button>
+            <ReactTooltip id="pentadecathlon" type="success">
+              <span>Pentadecathlon</span>
+            </ReactTooltip>
+          </div>
+
+          <div>
+            <h4>Still Lifes</h4>
+            <button
+              data-tip
+              data-for="blocks"
+              onClick={() => makePattern('blocks')}
+            >
+              <span role="img" aria-label="Ice">
+                🧊
+              </span>
+            </button>
+            <ReactTooltip id="blocks" type="success">
+              <span>Blocks</span>
+            </ReactTooltip>
+          </div>
         </div>
       </div>
     </div>
