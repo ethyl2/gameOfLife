@@ -5,6 +5,7 @@ module.exports = {
   makePulsar,
   makePentadecathlon,
   makeBlocks,
+  makeBeehives,
 };
 
 function makeBlinkers(rows, cols) {
@@ -108,6 +109,22 @@ function makeBlocks(rows, cols) {
       const indices = [10, 11, 15, 16, 30, 31, 34, 35, 5, 6];
       if (indices.includes(x) && indices.includes(y)) {
         newBoard[y][x] = true;
+      }
+    }
+  }
+  return newBoard;
+}
+
+function makeBeehives(rows, cols) {
+  let newBoard = [...Array(rows)].map((e) => Array(cols));
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      if ([10, 11, 15, 16].includes(x) && [10, 12, 15, 17].includes(y)) {
+        newBoard[y][x] = true;
+      } else if ([9, 12, 14, 17].includes(x) && [11, 16].includes(y)) {
+        newBoard[y][x] = true;
+      } else {
+        newBoard[y][x] = false;
       }
     }
   }

@@ -12,6 +12,7 @@ import {
   makePulsar,
   makePentadecathlon,
   makeBlocks,
+  makeBeehives,
 } from './utils/makePatterns';
 
 function Game() {
@@ -83,7 +84,7 @@ function Game() {
     const offsetX = e.clientX - elemOffset.x;
     const offsetY = e.clientY - elemOffset.y;
     const newX = Math.floor(offsetX / CELL_SIZE);
-    const newY = Math.floor(offsetY / CELL_SIZE) + 1;
+    const newY = Math.floor(offsetY / CELL_SIZE);
     if (newX >= 0 && newX <= cols && newY >= 0 && newY <= rows) {
       console.log(`Clicked on: ${newX}, ${newY}`);
       setX(newX);
@@ -176,6 +177,9 @@ function Game() {
         break;
       case 'blocks':
         setBoard(makeBlocks(rows, cols));
+        break;
+      case 'beehives':
+        setBoard(makeBeehives(rows, cols));
         break;
       default:
         setBoard(makePulsar(rows, cols));
@@ -420,6 +424,19 @@ function Game() {
             </button>
             <ReactTooltip id="blocks" type="success">
               <span>Blocks</span>
+            </ReactTooltip>
+
+            <button
+              data-tip
+              data-for="beehives"
+              onClick={() => makePattern('beehives')}
+            >
+              <span role="img" aria-label="Honeybee">
+                🐝
+              </span>
+            </button>
+            <ReactTooltip id="beehives" type="success">
+              <span>Beehives</span>
             </ReactTooltip>
           </div>
         </div>
