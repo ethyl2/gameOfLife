@@ -6,6 +6,7 @@ module.exports = {
   makePentadecathlon,
   makeBlocks,
   makeBeehives,
+  makeLoaves,
 };
 
 function makeBlinkers(rows, cols) {
@@ -122,6 +123,26 @@ function makeBeehives(rows, cols) {
       if ([10, 11, 15, 16].includes(x) && [10, 12, 15, 17].includes(y)) {
         newBoard[y][x] = true;
       } else if ([9, 12, 14, 17].includes(x) && [11, 16].includes(y)) {
+        newBoard[y][x] = true;
+      } else {
+        newBoard[y][x] = false;
+      }
+    }
+  }
+  return newBoard;
+}
+
+function makeLoaves(rows, cols) {
+  let newBoard = [...Array(rows)].map((e) => Array(cols));
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      if ([10, 11, 28, 29].includes(x) && y === 10) {
+        newBoard[y][x] = true;
+      } else if ([9, 12, 27, 30].includes(x) && y === 11) {
+        newBoard[y][x] = true;
+      } else if ([10, 12, 28, 30].includes(x) && y === 12) {
+        newBoard[y][x] = true;
+      } else if ([11, 29].includes(x) && y === 13) {
         newBoard[y][x] = true;
       } else {
         newBoard[y][x] = false;

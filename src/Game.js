@@ -13,6 +13,7 @@ import {
   makePentadecathlon,
   makeBlocks,
   makeBeehives,
+  makeLoaves,
 } from './utils/makePatterns';
 
 function Game() {
@@ -180,6 +181,9 @@ function Game() {
         break;
       case 'beehives':
         setBoard(makeBeehives(rows, cols));
+        break;
+      case 'loaves':
+        setBoard(makeLoaves(rows, cols));
         break;
       default:
         setBoard(makePulsar(rows, cols));
@@ -436,6 +440,19 @@ function Game() {
               </span>
             </button>
             <ReactTooltip id="beehives" type="success">
+              <span>Beehives</span>
+            </ReactTooltip>
+
+            <button
+              data-tip
+              data-for="loaves"
+              onClick={() => makePattern('loaves')}
+            >
+              <span role="img" aria-label="Loaves">
+                🍞
+              </span>
+            </button>
+            <ReactTooltip id="loaves" type="success">
               <span>Beehives</span>
             </ReactTooltip>
           </div>
