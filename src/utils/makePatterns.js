@@ -9,6 +9,7 @@ module.exports = {
   makeLoaves,
   makeBoats,
   makeTubs,
+  makeGlider,
 };
 
 function makeBlinkers(rows, cols) {
@@ -181,6 +182,30 @@ function makeTubs(rows, cols) {
       } else if ([10, 12, 18, 20, 26, 28, 34, 36].includes(x) && y === 11) {
         newBoard[y][x] = true;
       } else if ([11, 19, 27, 35].includes(x) && y === 12) {
+        newBoard[y][x] = true;
+      } else {
+        newBoard[y][x] = false;
+      }
+    }
+  }
+  return newBoard;
+}
+
+function makeGlider(rows, cols) {
+  let newBoard = [...Array(rows)].map((e) => Array(cols));
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      if (x === 11 && y === 10) {
+        newBoard[y][x] = true;
+      } else if (x === 12 && y === 11) {
+        newBoard[y][x] = true;
+      } else if ([10, 11, 12].includes(x) && y === 12) {
+        newBoard[y][x] = true;
+      } else if (x === 1 && y === 0) {
+        newBoard[y][x] = true;
+      } else if (x === 2 && y === 1) {
+        newBoard[y][x] = true;
+      } else if ([0, 1, 2].includes(x) && y === 2) {
         newBoard[y][x] = true;
       } else {
         newBoard[y][x] = false;

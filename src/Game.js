@@ -16,6 +16,7 @@ import {
   makeLoaves,
   makeBoats,
   makeTubs,
+  makeGlider,
 } from './utils/makePatterns';
 
 function Game() {
@@ -196,6 +197,9 @@ function Game() {
         break;
       case 'tubs':
         setBoard(makeTubs(rows, cols));
+        break;
+      case 'glider':
+        setBoard(makeGlider(rows, cols));
         break;
       default:
         setBoard(makePulsar(rows, cols));
@@ -492,6 +496,22 @@ function Game() {
             </button>
             <ReactTooltip id="tubs" type="success">
               <span>Tubs</span>
+            </ReactTooltip>
+          </div>
+
+          <div>
+            <h4>Spaceships</h4>
+            <button
+              data-tip
+              data-for="glider"
+              onClick={() => makePattern('glider')}
+            >
+              <span role="img" aria-label="Small Airplane">
+                🛩️
+              </span>
+            </button>
+            <ReactTooltip id="glider" type="success">
+              <span>Glider</span>
             </ReactTooltip>
           </div>
         </div>
