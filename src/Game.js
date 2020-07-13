@@ -5,7 +5,7 @@ import Explanation from './Explanation';
 import makeRandomBoard from './utils/makeRandomBoard';
 import updateCompleteBoard from './utils/updateCompleteBoard';
 import makeEmptyBoard from './utils/makeEmptyBoard';
-import createPattern from './utils/makePatterns';
+import createPattern from './utils/createPattern';
 
 function Game() {
   const [probability, setProbability] = useState(0.85); //0.999 //Use 0.999 if you want to start with an empty board
