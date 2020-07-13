@@ -38,7 +38,11 @@ function Game() {
   useEffect(() => {
     setBoard(updateBoard());
     setCells(makeCells());
-  }, [x, y, board, numClicks]);
+  }, [x, y, numClicks]);
+
+  useEffect(() => {
+    setCells(makeCells());
+  }, [board]);
 
   useEffect(() => {
     setNumAlive(cells.length);
@@ -125,7 +129,7 @@ function Game() {
     console.log('running iteration with interval ' + interval);
     //TODO: Figure out how to get board to be redrawn each interval.
     // It works for makeRandomBoard, but not for updateCompleteBoard, for some reason.
-    // setBoard(makeRandomBoard(rows, cols, probability));
+    //setBoard(makeRandomBoard(rows, cols, probability));
     setBoard(updateCompleteBoard(rows, cols, board));
 
     setTimeoutHandler(
