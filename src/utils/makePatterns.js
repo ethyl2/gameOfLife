@@ -7,6 +7,8 @@ module.exports = {
   makeBlocks,
   makeBeehives,
   makeLoaves,
+  makeBoats,
+  makeTubs,
 };
 
 function makeBlinkers(rows, cols) {
@@ -143,6 +145,42 @@ function makeLoaves(rows, cols) {
       } else if ([10, 12, 28, 30].includes(x) && y === 12) {
         newBoard[y][x] = true;
       } else if ([11, 29].includes(x) && y === 13) {
+        newBoard[y][x] = true;
+      } else {
+        newBoard[y][x] = false;
+      }
+    }
+  }
+  return newBoard;
+}
+
+function makeBoats(rows, cols) {
+  let newBoard = [...Array(rows)].map((e) => Array(cols));
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      if ([10, 11, 18, 19, 26, 27, 34, 35].includes(x) && y === 10) {
+        newBoard[y][x] = true;
+      } else if ([10, 12, 18, 20, 26, 28, 34, 36].includes(x) && y === 11) {
+        newBoard[y][x] = true;
+      } else if ([11, 19, 27, 35].includes(x) && y === 12) {
+        newBoard[y][x] = true;
+      } else {
+        newBoard[y][x] = false;
+      }
+    }
+  }
+  return newBoard;
+}
+
+function makeTubs(rows, cols) {
+  let newBoard = [...Array(rows)].map((e) => Array(cols));
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      if ([11, 19, 27, 35].includes(x) && y === 10) {
+        newBoard[y][x] = true;
+      } else if ([10, 12, 18, 20, 26, 28, 34, 36].includes(x) && y === 11) {
+        newBoard[y][x] = true;
+      } else if ([11, 19, 27, 35].includes(x) && y === 12) {
         newBoard[y][x] = true;
       } else {
         newBoard[y][x] = false;

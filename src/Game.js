@@ -14,6 +14,8 @@ import {
   makeBlocks,
   makeBeehives,
   makeLoaves,
+  makeBoats,
+  makeTubs,
 } from './utils/makePatterns';
 
 function Game() {
@@ -188,6 +190,12 @@ function Game() {
         break;
       case 'loaves':
         setBoard(makeLoaves(rows, cols));
+        break;
+      case 'boats':
+        setBoard(makeBoats(rows, cols));
+        break;
+      case 'tubs':
+        setBoard(makeTubs(rows, cols));
         break;
       default:
         setBoard(makePulsar(rows, cols));
@@ -457,7 +465,33 @@ function Game() {
               </span>
             </button>
             <ReactTooltip id="loaves" type="success">
-              <span>Beehives</span>
+              <span>Loaves</span>
+            </ReactTooltip>
+
+            <button
+              data-tip
+              data-for="boats"
+              onClick={() => makePattern('boats')}
+            >
+              <span role="img" aria-label="Motor Boat">
+                🛥️
+              </span>
+            </button>
+            <ReactTooltip id="boats" type="success">
+              <span>Boats</span>
+            </ReactTooltip>
+
+            <button
+              data-tip
+              data-for="tubs"
+              onClick={() => makePattern('tubs')}
+            >
+              <span role="img" aria-label="Bathtub">
+                🛁
+              </span>
+            </button>
+            <ReactTooltip id="tubs" type="success">
+              <span>Tubs</span>
             </ReactTooltip>
           </div>
         </div>
