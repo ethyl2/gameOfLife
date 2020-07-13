@@ -5,19 +5,7 @@ import Explanation from './Explanation';
 import makeRandomBoard from './utils/makeRandomBoard';
 import updateCompleteBoard from './utils/updateCompleteBoard';
 import makeEmptyBoard from './utils/makeEmptyBoard';
-import {
-  makeBlinkers,
-  makeToads,
-  makeBeacons,
-  makePulsar,
-  makePentadecathlon,
-  makeBlocks,
-  makeBeehives,
-  makeLoaves,
-  makeBoats,
-  makeTubs,
-  makeGlider,
-} from './utils/makePatterns';
+import createPattern from './utils/makePatterns';
 
 function Game() {
   const [probability, setProbability] = useState(0.85); //0.999 //Use 0.999 if you want to start with an empty board
@@ -170,40 +158,7 @@ function Game() {
   };
 
   const makePattern = (patternType) => {
-    switch (patternType) {
-      case 'blinker':
-        setBoard(makeBlinkers(rows, cols));
-        break;
-      case 'toad':
-        setBoard(makeToads(rows, cols));
-        break;
-      case 'beacon':
-        setBoard(makeBeacons(rows, cols));
-        break;
-      case 'pentadecathlon':
-        setBoard(makePentadecathlon(rows, cols));
-        break;
-      case 'blocks':
-        setBoard(makeBlocks(rows, cols));
-        break;
-      case 'beehives':
-        setBoard(makeBeehives(rows, cols));
-        break;
-      case 'loaves':
-        setBoard(makeLoaves(rows, cols));
-        break;
-      case 'boats':
-        setBoard(makeBoats(rows, cols));
-        break;
-      case 'tubs':
-        setBoard(makeTubs(rows, cols));
-        break;
-      case 'glider':
-        setBoard(makeGlider(rows, cols));
-        break;
-      default:
-        setBoard(makePulsar(rows, cols));
-    }
+    setBoard(createPattern(rows, cols, patternType));
   };
 
   return (
