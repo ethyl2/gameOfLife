@@ -149,6 +149,22 @@ export default function createPattern(rows, cols, patternType) {
           }
           break;
 
+        case 'hwss':
+          if ([10, 11, 12, 13, 14, 15].includes(x) && y === 10) {
+            newBoard[y][x] = true;
+          } else if ([9, 15].includes(x) && y === 11) {
+            newBoard[y][x] = true;
+          } else if (x === 15 && y === 12) {
+            newBoard[y][x] = true;
+          } else if ([9, 14].includes(x) && y === 13) {
+            newBoard[y][x] = true;
+          } else if ([11, 12].includes(x) && y === 14) {
+            newBoard[y][x] = true;
+          } else {
+            newBoard[y][x] = false;
+          }
+          break;
+
         default:
           if (
             [10, 11, 12, 16, 17, 18, 30, 31, 32, 36, 37, 38].includes(x) &&

@@ -441,7 +441,7 @@ function Game() {
               </span>
             </button>
             <ReactTooltip id="glider" type="success">
-              <span>Glider</span>
+              <span>Gliders</span>
             </ReactTooltip>
 
             <button
@@ -449,8 +449,8 @@ function Game() {
               data-for="lwss"
               onClick={() => makePattern('lwss')}
             >
-              <span role="img" aria-label="Rocket">
-                🚀
+              <span role="img" aria-label="Satellite">
+                🛰️
               </span>
             </button>
             <ReactTooltip id="lwss" type="success">
@@ -468,6 +468,19 @@ function Game() {
             </button>
             <ReactTooltip id="mwss" type="success">
               <span>Middle-weight spaceship</span>
+            </ReactTooltip>
+
+            <button
+              data-tip
+              data-for="hwss"
+              onClick={() => makePattern('hwss')}
+            >
+              <span role="img" aria-label="Rocket">
+                🚀
+              </span>
+            </button>
+            <ReactTooltip id="hwss" type="success">
+              <span>Heavy-weight spaceship</span>
             </ReactTooltip>
           </div>
         </div>
