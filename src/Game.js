@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
+import useInterval from './hooks/useInterval';
 import Cell from './Cell';
 import Explanation from './Explanation';
 import makeRandomBoard from './utils/makeRandomBoard';
@@ -24,7 +25,6 @@ function Game() {
   const [numClicks, setNumClicks] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [interval, setInterval] = useState(100);
-  const [timeoutHandler, setTimeoutHandler] = useState(null);
 
   useEffect(() => {
     setBoard(updateBoard());
@@ -103,32 +103,19 @@ function Game() {
 
   const runGame = () => {
     setIsRunning(true);
-    console.log('start game');
-    runIteration();
   };
 
   const stopGame = () => {
     setIsRunning(false);
-    console.log('stop game');
-    if (timeoutHandler) {
-      window.clearTimeout(timeoutHandler);
-      setTimeoutHandler(null);
-    }
   };
 
-  const runIteration = () => {
-    console.log('running iteration with interval ' + interval);
-    //TODO: Figure out how to get board to be redrawn each interval.
-    // It works for makeRandomBoard, but not for updateCompleteBoard, for some reason.
-    //setBoard(makeRandomBoard(rows, cols, probability));
+  // Callback for useInterval hook
+  function setAndUpdateBoard() {
     setBoard(updateCompleteBoard(rows, cols, board));
+  }
 
-    setTimeoutHandler(
-      window.setTimeout(() => {
-        runIteration();
-      }, interval)
-    );
-  };
+  // Continually updates the board every interval ms while isRunning is true
+  useInterval(setAndUpdateBoard, isRunning ? interval : null);
 
   const handleIntervalChange = (e) => {
     setInterval(e.target.value);
@@ -140,19 +127,7 @@ function Game() {
   const clearBoard = () => {
     setBoard(makeEmptyBoard(rows, cols));
   };
-  /*
-  useEffect(() => {
-    // For testing purposes
-    //49 , 29
-    //calculateNeighbors(2, 2, board, rows, cols);
-    // console.log(determineCellsFate(1, 1, board, rows, cols));
-    //const boardCopy = [...board];
-    //const newBoard = updateCompleteBoard(rows, cols, board);
-    //console.log(newBoard);
-    //setBoard(updateCompleteBoard(rows, cols, board));
-    //setBoard(makeBlinker());
-  }, [numClicks]);
-  */
+
   const handleGenerationClick = () => {
     setBoard(updateCompleteBoard(rows, cols, board));
   };
