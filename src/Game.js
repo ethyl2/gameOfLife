@@ -443,6 +443,19 @@ function Game() {
             <ReactTooltip id="glider" type="success">
               <span>Glider</span>
             </ReactTooltip>
+
+            <button
+              data-tip
+              data-for="lwss"
+              onClick={() => makePattern('lwss')}
+            >
+              <span role="img" aria-label="Rocket">
+                🚀
+              </span>
+            </button>
+            <ReactTooltip id="lwss" type="success">
+              <span>Light-weight spaceship</span>
+            </ReactTooltip>
           </div>
         </div>
       </div>
