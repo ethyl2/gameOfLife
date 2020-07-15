@@ -28,3 +28,9 @@
   background: yellowgreen;
   position: absolute;
 }
+
+.button-group {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}

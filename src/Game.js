@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
 import useInterval from './hooks/useInterval';
-import Cell from './Cell';
-import Explanation from './Explanation';
+import Cell from './components/Cell';
+import Explanation from './components/Explanation';
+import PatternButton from './components/PatternButton';
 import makeRandomBoard from './utils/makeRandomBoard';
 import updateCompleteBoard from './utils/updateCompleteBoard';
 import makeEmptyBoard from './utils/makeEmptyBoard';
 import createPattern from './utils/createPattern';
+import { patternButtonInfo } from './data/patternButtonInfo';
 
 function Game() {
   const [probability, setProbability] = useState(0.85); //0.999 //Use 0.999 if you want to start with an empty board
@@ -482,6 +484,36 @@ function Game() {
             <ReactTooltip id="hwss" type="success">
               <span>Heavy-weight spaceship</span>
             </ReactTooltip>
+            <div className="button-group">
+              <PatternButton
+                name="blinker"
+                makePattern={makePattern}
+                ariaLabel="Sparkles"
+                emoji="✨"
+                spanText="Blinkers"
+              />
+              <PatternButton
+                name="blinker"
+                makePattern={makePattern}
+                ariaLabel="Sparkles"
+                emoji="✨"
+                spanText="Blinkers"
+              />
+            </div>
+
+            <div className="button-group">
+              {patternButtonInfo.map((pattern) => {
+                return (
+                  <PatternButton
+                    name={pattern.name}
+                    makePattern={makePattern}
+                    ariaLabel={pattern.ariaLabel}
+                    emoji={pattern.emoji}
+                    spanText={pattern.spanText}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
