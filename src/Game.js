@@ -78,20 +78,22 @@ function Game() {
   }
 
   const handleClick = (e) => {
-    const elemOffset = getElementOffset();
-    const offsetX = e.clientX - elemOffset.x;
-    const offsetY = e.clientY - elemOffset.y;
-    const newX = Math.floor(offsetX / CELL_SIZE);
-    const newY = Math.floor(offsetY / CELL_SIZE);
-    if (newX >= 0 && newX <= cols && newY >= 0 && newY <= rows) {
-      console.log(`Clicked on: ${newX}, ${newY}`);
-      setX(newX);
-      setY(newY);
+    if (!isRunning) {
+      const elemOffset = getElementOffset();
+      const offsetX = e.clientX - elemOffset.x;
+      const offsetY = e.clientY - elemOffset.y;
+      const newX = Math.floor(offsetX / CELL_SIZE);
+      const newY = Math.floor(offsetY / CELL_SIZE) + 1;
+      if (newX >= 0 && newX <= cols && newY >= 0 && newY <= rows) {
+        console.log(`Clicked on: ${newX}, ${newY}`);
+        setX(newX);
+        setY(newY);
+      }
+      setNumClicks(numClicks + 1);
+      setProbability(
+        1 - cells.length / ((HEIGHT / CELL_SIZE) * (WIDTH / CELL_SIZE))
+      );
     }
-    setNumClicks(numClicks + 1);
-    setProbability(
-      1 - cells.length / ((HEIGHT / CELL_SIZE) * (WIDTH / CELL_SIZE))
-    );
   };
 
   const getElementOffset = () => {
