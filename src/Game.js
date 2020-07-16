@@ -8,7 +8,7 @@ import makeRandomBoard from './utils/makeRandomBoard';
 import updateCompleteBoard from './utils/updateCompleteBoard';
 import makeEmptyBoard from './utils/makeEmptyBoard';
 import createPattern from './utils/createPattern';
-import { patternButtonInfo } from './data/patternButtonInfo';
+import { oscillators, stillLifes, spaceships } from './data/patternButtonInfo';
 
 function Game() {
   const [probability, setProbability] = useState(0.85); //0.999 //Use 0.999 if you want to start with an empty board
@@ -297,212 +297,42 @@ function Game() {
           <h3>Show Patterns</h3>
           <div>
             <h4>Oscillators</h4>
-            <button
-              data-tip
-              data-for="blinker"
-              onClick={() => makePattern('blinker')}
-            >
-              <span role="img" aria-label="Sparkles">
-                ✨
-              </span>
-            </button>
-            <ReactTooltip id="blinker" type="success">
-              <span>Blinkers</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="toad"
-              onClick={() => makePattern('toad')}
-            >
-              <span role="img" aria-label="Frog">
-                🐸
-              </span>
-            </button>
-            <ReactTooltip id="toad" type="success">
-              <span>Toads</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="beacon"
-              onClick={() => makePattern('beacon')}
-            >
-              <span role="img" aria-label="Police Car Light">
-                🚨
-              </span>
-            </button>
-            <ReactTooltip id="beacon" type="success">
-              <span>Beacons</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="pulsar"
-              onClick={() => makePattern('pulsar')}
-            >
-              <span role="img" aria-label="Collision">
-                💥
-              </span>
-            </button>
-            <ReactTooltip id="pulsar" type="success">
-              <span>Pulsars</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="pentadecathlon"
-              onClick={() => makePattern('pentadecathlon')}
-            >
-              <span role="img" aria-label="Wind Chime">
-                🎐
-              </span>
-            </button>
-            <ReactTooltip id="pentadecathlon" type="success">
-              <span>Pentadecathlon</span>
-            </ReactTooltip>
+            <div className="button-group">
+              {oscillators.map((pattern) => {
+                return (
+                  <PatternButton
+                    name={pattern.name}
+                    makePattern={makePattern}
+                    ariaLabel={pattern.ariaLabel}
+                    emoji={pattern.emoji}
+                    spanText={pattern.spanText}
+                  />
+                );
+              })}
+            </div>
           </div>
 
           <div>
             <h4>Still Lifes</h4>
-            <button
-              data-tip
-              data-for="blocks"
-              onClick={() => makePattern('blocks')}
-            >
-              <span role="img" aria-label="Ice">
-                🧊
-              </span>
-            </button>
-            <ReactTooltip id="blocks" type="success">
-              <span>Blocks</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="beehives"
-              onClick={() => makePattern('beehives')}
-            >
-              <span role="img" aria-label="Honeybee">
-                🐝
-              </span>
-            </button>
-            <ReactTooltip id="beehives" type="success">
-              <span>Beehives</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="loaves"
-              onClick={() => makePattern('loaves')}
-            >
-              <span role="img" aria-label="Loaves">
-                🍞
-              </span>
-            </button>
-            <ReactTooltip id="loaves" type="success">
-              <span>Loaves</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="boats"
-              onClick={() => makePattern('boats')}
-            >
-              <span role="img" aria-label="Motor Boat">
-                🛥️
-              </span>
-            </button>
-            <ReactTooltip id="boats" type="success">
-              <span>Boats</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="tubs"
-              onClick={() => makePattern('tubs')}
-            >
-              <span role="img" aria-label="Bathtub">
-                🛁
-              </span>
-            </button>
-            <ReactTooltip id="tubs" type="success">
-              <span>Tubs</span>
-            </ReactTooltip>
+            <div className="button-group">
+              {stillLifes.map((pattern) => {
+                return (
+                  <PatternButton
+                    name={pattern.name}
+                    makePattern={makePattern}
+                    ariaLabel={pattern.ariaLabel}
+                    emoji={pattern.emoji}
+                    spanText={pattern.spanText}
+                  />
+                );
+              })}
+            </div>
           </div>
 
           <div>
             <h4>Spaceships</h4>
-            <button
-              data-tip
-              data-for="glider"
-              onClick={() => makePattern('glider')}
-            >
-              <span role="img" aria-label="Small Airplane">
-                🛩️
-              </span>
-            </button>
-            <ReactTooltip id="glider" type="success">
-              <span>Gliders</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="lwss"
-              onClick={() => makePattern('lwss')}
-            >
-              <span role="img" aria-label="Satellite">
-                🛰️
-              </span>
-            </button>
-            <ReactTooltip id="lwss" type="success">
-              <span>Light-weight spaceship</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="mwss"
-              onClick={() => makePattern('mwss')}
-            >
-              <span role="img" aria-label="Flying Saucer">
-                🛸
-              </span>
-            </button>
-            <ReactTooltip id="mwss" type="success">
-              <span>Middle-weight spaceship</span>
-            </ReactTooltip>
-
-            <button
-              data-tip
-              data-for="hwss"
-              onClick={() => makePattern('hwss')}
-            >
-              <span role="img" aria-label="Rocket">
-                🚀
-              </span>
-            </button>
-            <ReactTooltip id="hwss" type="success">
-              <span>Heavy-weight spaceship</span>
-            </ReactTooltip>
             <div className="button-group">
-              <PatternButton
-                name="blinker"
-                makePattern={makePattern}
-                ariaLabel="Sparkles"
-                emoji="✨"
-                spanText="Blinkers"
-              />
-              <PatternButton
-                name="blinker"
-                makePattern={makePattern}
-                ariaLabel="Sparkles"
-                emoji="✨"
-                spanText="Blinkers"
-              />
-            </div>
-
-            <div className="button-group">
-              {patternButtonInfo.map((pattern) => {
+              {spaceships.map((pattern) => {
                 return (
                   <PatternButton
                     name={pattern.name}
