@@ -21,6 +21,7 @@ function Game() {
   const [cells, setCells] = useState(makeCells());
   const boardRef = useRef();
   const [numAlive, setNumAlive] = useState(cells.length);
+  const [generationNum, setGenerationNum] = useState(1);
   const [x, setX] = useState(cols / 2);
   const [y, setY] = useState(rows / 2);
 
@@ -42,6 +43,7 @@ function Game() {
   }, [cells]);
 
   const generateRandomBoard = (lessOrMore) => {
+    setGenerationNum(1);
     if (lessOrMore === 'more') {
       const newProbability = probability - 0.05;
       if (newProbability > 0) {
@@ -116,6 +118,7 @@ function Game() {
   // Callback for useInterval hook
   function setAndUpdateBoard() {
     setBoard(updateCompleteBoard(rows, cols, board));
+    setGenerationNum((prevNum) => prevNum + 1);
   }
 
   // Continually updates the board every interval ms while isRunning is true
@@ -130,13 +133,16 @@ function Game() {
 
   const clearBoard = () => {
     setBoard(makeEmptyBoard(rows, cols));
+    setGenerationNum(1);
   };
 
   const handleGenerationClick = () => {
+    setGenerationNum((prevNum) => prevNum + 1);
     setBoard(updateCompleteBoard(rows, cols, board));
   };
 
   const makePattern = (patternType) => {
+    setGenerationNum(1);
     setBoard(createPattern(rows, cols, patternType));
   };
 
@@ -244,10 +250,8 @@ function Game() {
         </div>
 
         <div>
+          <h3>Generation: {generationNum}</h3>
           <h3>Number of Live Cells: {numAlive}</h3>
-        </div>
-
-        <div>
           <h3>{`Chance of cells being alive: ${
             ((1 - probability) * 100).toFixed(0) > 0
               ? ((1 - probability) * 100).toFixed(0)
