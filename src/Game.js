@@ -85,7 +85,7 @@ function Game() {
       const offsetX = e.clientX - elemOffset.x;
       const offsetY = e.clientY - elemOffset.y;
       const newX = Math.floor(offsetX / CELL_SIZE);
-      const newY = Math.floor(offsetY / CELL_SIZE) + 1;
+      const newY = Math.floor(offsetY / CELL_SIZE);
       if (newX >= 0 && newX <= cols && newY >= 0 && newY <= rows) {
         console.log(`Clicked on: ${newX}, ${newY}`);
         setX(newX);
