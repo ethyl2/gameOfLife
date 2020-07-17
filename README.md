@@ -1,4 +1,8 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2537c0c2-0f91-498a-8668-f8ffb81e0674/deploy-status)](https://app.netlify.com/sites/heathernuffer-gameoflife/deploys)
+
 # Conway's Game of Life
+
+https://heathernuffer-gameoflife.netlify.app/
 
 This project is my implementation of Conway's Game of Life.
 
