@@ -2,7 +2,7 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 
 /*
-Sample props:
+// Sample props:
 name: 'blinker',
 makePattern: makePattern,
 ariaLabel: 'Sparkles',

@@ -312,6 +312,7 @@ function Game() {
                     ariaLabel={pattern.ariaLabel}
                     emoji={pattern.emoji}
                     spanText={pattern.spanText}
+                    key={pattern.name}
                   />
                 );
               })}
@@ -329,6 +330,7 @@ function Game() {
                     ariaLabel={pattern.ariaLabel}
                     emoji={pattern.emoji}
                     spanText={pattern.spanText}
+                    key={pattern.name}
                   />
                 );
               })}
@@ -346,6 +348,7 @@ function Game() {
                     ariaLabel={pattern.ariaLabel}
                     emoji={pattern.emoji}
                     spanText={pattern.spanText}
+                    key={pattern.name}
                   />
                 );
               })}

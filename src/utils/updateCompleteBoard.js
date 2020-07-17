@@ -11,6 +11,5 @@ export default function updateCompleteBoard(rows, cols, board) {
       }
     }
   }
-  //console.log(newBoard);
   return newBoard;
 }
