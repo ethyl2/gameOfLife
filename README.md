@@ -1,6 +1,78 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Conway's Game of Life
 
-## Available Scripts
+This project is my implementation of Conway's Game of Life.
+
+Users are able to run different scenerios, including different types of patterns, randomization, and custom designs.
+
+## What is the Game of Life?
+
+It is a 'cellular automaton' invented by Cambridge mathematician John Conway in 1970.
+
+The board contains of cells which will live, die or multiply, depending on the rules.
+
+Depending on the initial layout of the grid, the cells may form various patterns as the game advances.
+
+## What problem does it solve?
+
+My project, specifically, can repeatedly update each cell in the grid, displaying the next generations of cells
+that result from the rules for the game.
+
+### The Rules
+
+#### If a cell is alive:
+
+- If it has only 0-1 alive neighbors, it dies, representing underpopulation.
+- If it has 2-3 alive neighbors, it lives on to the next generation.
+- If it has more than 3 alive neighbors, it dies, representing overpopulation.
+
+#### If a cell is dead:
+
+- If it has exactly 3 alive neighbors, it becomes a live cell, representing reproduction.
+- Otherwise, it remains dead.
+
+In a more general scope, cellular automata are used to solve problems involving biological and chemical simulatons. They are also used in certain computer processors and other numeric techniques.
+
+## Challenges
+
+### Edge cases
+
+There are different ways to handle the edges of the grid. I choose to have the grid wrap around the edges.
+If a spaceship travels to the left edge, for example, it will reappear on the right edge and continue
+travelling, as long as the game is running.
+The top wraps to the bottom, as well.
+
+### Continually updating the grid display
+
+My biggest challenge was successfully implementing the ability to have the board update itself when the play
+button is pushed. It was easier to implement the button to advance the game, one generation at a time.
+Using a custom hook was my solution to get my app to refresh the display each desired time interval.
+
+Helpful Resources:
+
+https://css-tricks.com/using-requestanimationframe-with-react-hooks/
+
+https://www.youtube.com/watch?v=SP-NrbQHFww
+
+## Wishlist
+
+Things I'd love to do in the future with this project:
+
+1. Add functionality to change the size of the grid.
+2. Add functionality to change the size of the cells.
+3. Make a Gosper glider gun as one of the patterns.
+4. Add functionality to skip a specified number of generations.
+5. Go into more detail about the Game of Life in an explanation component.
+
+---
+
+## How to run this app locally:
+
+1. Fork and clone this repository.
+2. In terminal, run `npm i`.
+3. In terminal, run `npm start`.
+4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## Other Available Scripts
 
 In the project directory, you can run:
 
