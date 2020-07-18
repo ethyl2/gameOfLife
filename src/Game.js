@@ -29,6 +29,8 @@ function Game() {
   const [isRunning, setIsRunning] = useState(false);
   const [interval, setInterval] = useState(100);
 
+  const [generationsToSkip, setGenerationsToSkip] = useState(1);
+
   useEffect(() => {
     setBoard(updateBoard());
     setCells(makeCells());
@@ -146,6 +148,21 @@ function Game() {
     setBoard(createPattern(rows, cols, patternType));
   };
 
+  const handleGenerationsToSkipChange = (e) => {
+    if (parseInt(e.target.value) < 501) {
+      setGenerationsToSkip(e.target.value);
+    } else {
+      setGenerationsToSkip(500);
+    }
+  };
+
+  const fastForwardGenerations = () => {
+    for (let i = 0; i <= generationsToSkip; i++) {
+      setGenerationNum((prevNum) => prevNum + 1);
+      setBoard((prevBoard) => updateCompleteBoard(rows, cols, prevBoard));
+    }
+  };
+
   return (
     <div className="Game">
       <div>
@@ -251,6 +268,31 @@ function Game() {
 
         <div>
           <h3>Generation: {generationNum}</h3>
+
+          <h4>
+            Skip
+            <input
+              value={generationsToSkip}
+              type="number"
+              onChange={handleGenerationsToSkipChange}
+              min="1"
+              max="500"
+            />
+            generations
+          </h4>
+          <button
+            data-tip
+            data-for="fast-forward"
+            onClick={() => fastForwardGenerations()}
+          >
+            <span role="img" aria-label="Next Track Button">
+              ⏭️
+            </span>
+          </button>
+          <ReactTooltip id="fast-forward" type="success">
+            <span>Skip Number of Generations</span>
+          </ReactTooltip>
+
           <h3>Number of Live Cells: {numAlive}</h3>
           <h3>{`Chance of cells being alive: ${
             ((1 - probability) * 100).toFixed(0) > 0
