@@ -64,7 +64,7 @@ Things I'd love to do in the future with this project:
 1. Add functionality to change the size of the grid.
 2. Add functionality to change the size of the cells.
 3. Make a Gosper glider gun as one of the patterns.
-4. Add functionality to skip a specified number of generations.
+4. Optimize the functionality to skip a specified number of generations.
 5. Go into more detail about the Game of Life in an explanation component.
 
 ---
