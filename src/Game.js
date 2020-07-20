@@ -246,6 +246,23 @@ function Game() {
         </div>
 
         <div>
+          {isRunning ? (
+            <button onClick={stopGame}>
+              <span role="img" aria-label="Octagonal Sign">
+                🛑
+              </span>
+            </button>
+          ) : (
+            <button data-tip data-for="run" onClick={runGame}>
+              <span role="img" aria-label="Black Right-Pointing Triangle">
+                ▶️
+              </span>
+            </button>
+          )}
+          <ReactTooltip id="run" type="success">
+            <span>{isRunning ? 'Stop' : 'Run'}</span>
+          </ReactTooltip>
+
           <button
             data-tip
             data-for="generation"
@@ -263,6 +280,15 @@ function Game() {
           </button>
           <ReactTooltip id="generation" type="success">
             <span>Show Next Generation</span>
+          </ReactTooltip>
+
+          <button data-tip data-for="clear" onClick={clearBoard}>
+            <span role="img" aria-label="Bar of Soap">
+              🧼
+            </span>
+          </button>
+          <ReactTooltip id="clear" type="success">
+            <span>Clear</span>
           </ReactTooltip>
         </div>
 
@@ -301,33 +327,6 @@ function Game() {
               ? ((1 - probability) * 100).toFixed(0)
               : '< 1'
           }%`}</h3>
-        </div>
-
-        <div>
-          {isRunning ? (
-            <button onClick={stopGame}>
-              <span role="img" aria-label="Octagonal Sign">
-                🛑
-              </span>
-            </button>
-          ) : (
-            <button data-tip data-for="run" onClick={runGame}>
-              <span role="img" aria-label="Black Right-Pointing Triangle">
-                ▶️
-              </span>
-            </button>
-          )}
-          <ReactTooltip id="run" type="success">
-            <span>{isRunning ? 'Stop' : 'Run'}</span>
-          </ReactTooltip>
-          <button data-tip data-for="clear" onClick={clearBoard}>
-            <span role="img" aria-label="Bar of Soap">
-              🧼
-            </span>
-          </button>
-          <ReactTooltip id="clear" type="success">
-            <span>Clear</span>
-          </ReactTooltip>
         </div>
 
         <div>
