@@ -149,10 +149,10 @@ function Game() {
   };
 
   const handleGenerationsToSkipChange = (e) => {
-    if (parseInt(e.target.value) < 501) {
+    if (parseInt(e.target.value) < 5000) {
       setGenerationsToSkip(e.target.value);
     } else {
-      setGenerationsToSkip(500);
+      setGenerationsToSkip(499);
     }
   };
 
@@ -269,29 +269,31 @@ function Game() {
         <div>
           <h3>Generation: {generationNum}</h3>
 
-          <h4>
-            Skip
-            <input
-              value={generationsToSkip}
-              type="number"
-              onChange={handleGenerationsToSkipChange}
-              min="1"
-              max="500"
-            />
-            generations
-          </h4>
-          <button
-            data-tip
-            data-for="fast-forward"
-            onClick={() => fastForwardGenerations()}
-          >
-            <span role="img" aria-label="Next Track Button">
-              ⏭️
-            </span>
-          </button>
-          <ReactTooltip id="fast-forward" type="success">
-            <span>Skip Number of Generations</span>
-          </ReactTooltip>
+          <div className="skip-generations">
+            <h4>
+              Skip
+              <input
+                value={generationsToSkip}
+                type="number"
+                onChange={handleGenerationsToSkipChange}
+                min="1"
+                max="500"
+              />
+              generations
+            </h4>
+            <button
+              data-tip
+              data-for="fast-forward"
+              onClick={() => fastForwardGenerations()}
+            >
+              <span role="img" aria-label="Next Track Button">
+                ⏭️
+              </span>
+            </button>
+            <ReactTooltip id="fast-forward" type="success">
+              <span>Skip Number of Generations</span>
+            </ReactTooltip>
+          </div>
 
           <h3>Number of Live Cells: {numAlive}</h3>
           <h3>{`Chance of cells being alive: ${

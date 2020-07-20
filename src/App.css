@@ -34,3 +34,9 @@
   flex-flow: row wrap;
   justify-content: center;
 }
+
+.skip-generations {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}

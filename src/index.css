@@ -39,7 +39,6 @@ li {
 
 ul {
   list-style-image: url('./images/squareGreen4.png');
-  /*list-style-type: square;*/
   list-style-position: outside;
   text-align: left;
 }
@@ -67,4 +66,11 @@ input {
   width: 35%;
   margin: 0.2rem;
   font-family: 'Orbitron', sans-serif;
+}
+
+@media (min-width: 800px) {
+  input {
+    width: 28%;
+    color: #480b97;
+  }
 }
