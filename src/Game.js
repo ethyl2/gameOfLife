@@ -29,6 +29,8 @@ function Game() {
   const [isRunning, setIsRunning] = useState(false);
   const [interval, setInterval] = useState(100);
 
+  const [generationsToSkip, setGenerationsToSkip] = useState(1);
+
   useEffect(() => {
     setBoard(updateBoard());
     setCells(makeCells());
@@ -146,6 +148,21 @@ function Game() {
     setBoard(createPattern(rows, cols, patternType));
   };
 
+  const handleGenerationsToSkipChange = (e) => {
+    if (parseInt(e.target.value) < 5000) {
+      setGenerationsToSkip(e.target.value);
+    } else {
+      setGenerationsToSkip(499);
+    }
+  };
+
+  const fastForwardGenerations = () => {
+    for (let i = 0; i <= generationsToSkip; i++) {
+      setGenerationNum((prevNum) => prevNum + 1);
+      setBoard((prevBoard) => updateCompleteBoard(rows, cols, prevBoard));
+    }
+  };
+
   return (
     <div className="Game">
       <div>
@@ -229,6 +246,23 @@ function Game() {
         </div>
 
         <div>
+          {isRunning ? (
+            <button onClick={stopGame}>
+              <span role="img" aria-label="Octagonal Sign">
+                🛑
+              </span>
+            </button>
+          ) : (
+            <button data-tip data-for="run" onClick={runGame}>
+              <span role="img" aria-label="Black Right-Pointing Triangle">
+                ▶️
+              </span>
+            </button>
+          )}
+          <ReactTooltip id="run" type="success">
+            <span>{isRunning ? 'Stop' : 'Run'}</span>
+          </ReactTooltip>
+
           <button
             data-tip
             data-for="generation"
@@ -247,35 +281,7 @@ function Game() {
           <ReactTooltip id="generation" type="success">
             <span>Show Next Generation</span>
           </ReactTooltip>
-        </div>
 
-        <div>
-          <h3>Generation: {generationNum}</h3>
-          <h3>Number of Live Cells: {numAlive}</h3>
-          <h3>{`Chance of cells being alive: ${
-            ((1 - probability) * 100).toFixed(0) > 0
-              ? ((1 - probability) * 100).toFixed(0)
-              : '< 1'
-          }%`}</h3>
-        </div>
-
-        <div>
-          {isRunning ? (
-            <button onClick={stopGame}>
-              <span role="img" aria-label="Octagonal Sign">
-                🛑
-              </span>
-            </button>
-          ) : (
-            <button data-tip data-for="run" onClick={runGame}>
-              <span role="img" aria-label="Black Right-Pointing Triangle">
-                ▶️
-              </span>
-            </button>
-          )}
-          <ReactTooltip id="run" type="success">
-            <span>{isRunning ? 'Stop' : 'Run'}</span>
-          </ReactTooltip>
           <button data-tip data-for="clear" onClick={clearBoard}>
             <span role="img" aria-label="Bar of Soap">
               🧼
@@ -284,6 +290,43 @@ function Game() {
           <ReactTooltip id="clear" type="success">
             <span>Clear</span>
           </ReactTooltip>
+        </div>
+
+        <div>
+          <h3>Generation: {generationNum}</h3>
+
+          <div className="skip-generations">
+            <h4>
+              Skip
+              <input
+                value={generationsToSkip}
+                type="number"
+                onChange={handleGenerationsToSkipChange}
+                min="1"
+                max="500"
+              />
+              generations
+            </h4>
+            <button
+              data-tip
+              data-for="fast-forward"
+              onClick={() => fastForwardGenerations()}
+            >
+              <span role="img" aria-label="Next Track Button">
+                ⏭️
+              </span>
+            </button>
+            <ReactTooltip id="fast-forward" type="success">
+              <span>Skip Number of Generations</span>
+            </ReactTooltip>
+          </div>
+
+          <h3>Number of Live Cells: {numAlive}</h3>
+          <h3>{`Chance of cells being alive: ${
+            ((1 - probability) * 100).toFixed(0) > 0
+              ? ((1 - probability) * 100).toFixed(0)
+              : '< 1'
+          }%`}</h3>
         </div>
 
         <div>
