@@ -40,3 +40,10 @@
   flex-flow: row wrap;
   justify-content: center;
 }
+
+@media (min-width: 1800px) {
+  .Game {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+}
